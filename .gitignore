@@ -752,3 +752,6 @@ coverage*[.json, .xml, .info]
 
 # appsettings.json
 appsettings.json
+
+.idea/
+
