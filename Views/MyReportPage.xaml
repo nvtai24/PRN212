@@ -33,43 +33,42 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Date Range Filter -->
-                <StackPanel Grid.Column="0">
-                    <TextBlock Text="Date Range" 
-                             Margin="0,0,0,5"/>
-                    <ComboBox x:Name="DateRangeComboBox"
-                            Height="35"
-                            VerticalContentAlignment="Center">
-                        <ComboBoxItem Content="All Time"/>
-                        <ComboBoxItem Content="Last 7 Days"/>
-                        <ComboBoxItem Content="Last 30 Days"/>
-                        <ComboBoxItem Content="Last 3 Months"/>
-                    </ComboBox>
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <!-- Date Range Text -->
+                    <TextBlock Text="Date Range" Margin="0,0,0,5"/>
+
+                    <!-- Date Pickers Row -->
+                    <StackPanel Orientation="Horizontal">
+                        <!-- Start Date Picker -->
+                        <DatePicker x:Name="StartDatePicker" Height="35" Margin="0,0,10,0"/>
+
+                        <!-- End Date Picker -->
+                        <DatePicker x:Name="EndDatePicker" Height="35"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <!-- Status Filter -->
-                <StackPanel Grid.Column="2">
-                    <TextBlock Text="Status" 
-                             Margin="0,0,0,5"/>
-                    <ComboBox x:Name="StatusComboBox"
-                            Height="35"
-                            VerticalContentAlignment="Center">
-                        <ComboBoxItem Content="All Status"/>
+                <StackPanel Grid.Column="2" Orientation="Vertical">
+                    <TextBlock Text="Status" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="StatusComboBox" Height="35" VerticalContentAlignment="Center">
+                        <ComboBoxItem Content="All Status" IsSelected="True"/>
                         <ComboBoxItem Content="Pending"/>
-                        <ComboBoxItem Content="Under Review"/>
-                        <ComboBoxItem Content="Resolved"/>
+                        <ComboBoxItem Content="Approved"/>
                         <ComboBoxItem Content="Rejected"/>
                     </ComboBox>
                 </StackPanel>
 
                 <!-- Apply Filter Button -->
                 <Button Grid.Column="4"
-                        Content="Apply Filters"
-                        Height="35"
-                        Width="100"
-                        VerticalAlignment="Bottom"
-                        Background="#2196F3"
-                        Foreground="White"/>
+            Content="Apply Filters"
+            Height="35"
+            Width="100"
+            VerticalAlignment="Bottom"
+            Background="#2196F3"
+            Foreground="White"
+            Click="ApplyFiltersButton_Click"/>
             </Grid>
+
         </StackPanel>
 
         <!-- Reports DataGrid -->
@@ -97,7 +96,7 @@
                                           Binding="{Binding ReportId}" 
                                           Width="100"/>
                         <DataGridTextColumn Header="Date Submitted" 
-                                          Binding="{Binding SubmitDate}" 
+                                          Binding="{Binding ReportDate}" 
                                           Width="150"/>
                         <DataGridTextColumn Header="Violation Type" 
                                           Binding="{Binding ViolationType}" 
