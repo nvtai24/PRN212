@@ -130,7 +130,7 @@
                       HorizontalAlignment="Center"
                       Margin="0,0,0,30"/>
 
-            <TextBlock Text="Username or Email" 
+            <TextBlock Text="Email" 
                       FontSize="14" 
                       FontWeight="Medium"
                       Foreground="#4b5563"/>
