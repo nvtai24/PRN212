@@ -5,7 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:local="clr-namespace:PRN212.Views"
       mc:Ignorable="d"
-      Title="LoginPage">
+      Title="LoginPage" >
 
     <Page.Resources>
         <Style x:Key="LoginButtonStyle" TargetType="Button">

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using PRN212.ViewModels;
+using PRN212.Repositories;
 
 namespace PRN212.Views;
 
@@ -26,7 +26,7 @@ public partial class LoginPage : Page
             MessageBox.Show("Please enter password.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
-        UserDAO userDao = new UserDAO();
+        UserRepository userDao = new UserRepository();
         bool isValidUser = userDao.ValidateUser(email, password);
         if (isValidUser)
         {
