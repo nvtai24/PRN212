@@ -13,9 +13,8 @@ public partial class App : Application
 {
     public App()
     {
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.DataContext = new MainWindowViewModel(); 
-        mainWindow.Show();  
+        LoginWindow loginWindow = new();
+        loginWindow.Show(); 
     }
     
 }
