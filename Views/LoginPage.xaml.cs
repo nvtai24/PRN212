@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using PRN212.ViewModels;
 
 namespace PRN212.Views;
 
@@ -12,10 +13,32 @@ public partial class LoginPage : Page
 
     private void BtnLogin_OnClick(object sender, RoutedEventArgs e)
     {
-        var currentWindow = Window.GetWindow(this);
-        MainWindow mainWindow = new MainWindow();
-        mainWindow.Show();
-        currentWindow?.Close();
+        string email = txtUsername.Text;
+        string password = txtPassword.Password;
+        if (string.IsNullOrEmpty(email))
+        {
+            MessageBox.Show("Please enter email.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(password))
+        {
+            MessageBox.Show("Please enter password.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+        UserDAO userDao = new UserDAO();
+        bool isValidUser = userDao.ValidateUser(email, password);
+        if (isValidUser)
+        {
+            var currentWindow = Window.GetWindow(this);
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            currentWindow?.Close();
+        }
+        else
+        {
+            MessageBox.Show("Wrong username or password", "Error login", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
 
     }
     
