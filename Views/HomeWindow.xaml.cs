@@ -8,4 +8,10 @@ public partial class HomeWindow : Window
     {
         InitializeComponent();
     }
+
+    private void BtnNotifications_OnClick(object sender, RoutedEventArgs e)
+    {
+        MyNotificationWindow notificationWindow = new MyNotificationWindow();
+        notificationWindow.Show();  
+    }
 }

@@ -5,8 +5,93 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:PRN212.Views"
         mc:Ignorable="d"
-        Title="UserListWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="User Management" Height="600" Width="1000"
+       >
+    <Grid Background="#F0F2F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Background="#1877F2">
+            <TextBlock Text="User Management" 
+                       FontSize="24" 
+                       FontWeight="Bold" 
+                       Foreground="White"/>
+        </StackPanel>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Search and Add User Section -->
+            <Grid Grid.Row="0" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBox Width="300" 
+                             Height="35" 
+                             Margin="0,0,10,0"
+                             VerticalContentAlignment="Center"
+                             Padding="5"
+                            />
+                    <Button Content="Search" 
+                            Width="100" 
+                            Height="35"
+                            Background="#1877F2"
+                            Foreground="White"/>
+                </StackPanel>
+
+                <Button Grid.Column="1" 
+                        Content="Add New User" 
+                        Width="120" 
+                        Height="35"
+                        Background="#42B72A"
+                        Foreground="White"/>
+            </Grid>
+
+            <!-- Users DataGrid -->
+            <DataGrid Grid.Row="1" 
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      GridLinesVisibility="Horizontal"
+                      Background="White"
+                      BorderThickness="1"
+                      BorderBrush="#DDD">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="70"/>
+                    <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="150"/>
+                    <DataGridTextColumn Header="Full Name" Binding="{Binding FullName}" Width="200"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+                    <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="100"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100"/>
+                    <DataGridTemplateColumn Header="Actions" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Edit" 
+                                            Margin="5,0"
+                                            Width="60"
+                                            Background="#1877F2"
+                                            Foreground="White"/>
+                                    <Button Content="Delete" 
+                                            Margin="5,0"
+                                            Width="60"
+                                            Background="#DC3545"
+                                            Foreground="White"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Window>

@@ -5,8 +5,295 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:PRN212.Views"
         mc:Ignorable="d"
-        Title="MyNotificationWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Notifications" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="#F0F2F5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Background="#1877F2">
+            <TextBlock Text="Notifications" 
+                      FontSize="24" 
+                      FontWeight="Bold" 
+                      Foreground="White"/>
+        </StackPanel>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Filter Section -->
+            <StackPanel Grid.Row="0" 
+                        Orientation="Horizontal" 
+                        Margin="0,0,0,20">
+                <ComboBox Width="150" 
+                          Height="35" 
+                          Margin="0,0,10,0"
+                          VerticalContentAlignment="Center">
+                    <ComboBoxItem Content="All Notifications" IsSelected="True"/>
+                    <ComboBoxItem Content="Unread"/>
+                    <ComboBoxItem Content="Violations"/>
+                    <ComboBoxItem Content="System"/>
+                </ComboBox>
+                <Button Content="Mark All as Read" 
+                        Width="120" 
+                        Height="35"
+                        Background="#1877F2"
+                        Foreground="White"/>
+            </StackPanel>
+
+            <!-- Notifications List -->
+            <ScrollViewer Grid.Row="1" 
+                         VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <!-- Unread Violation Notification -->
+                    <Border Background="White" 
+                            Margin="0,0,0,10" 
+                            Padding="15"
+                            CornerRadius="8"
+                            BorderThickness="1"
+                            BorderBrush="#DDD">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Red Circle for Unread -->
+                            <Border Grid.Column="0" 
+                                    Width="40" 
+                                    Height="40" 
+                                    CornerRadius="20"
+                                    Background="#ffcdd2"
+                                    Margin="0,0,15,0">
+                                <TextBlock Text="!" 
+                                         FontSize="24"
+                                         FontWeight="Bold"
+                                         Foreground="#c62828"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"/>
+                            </Border>
+
+                            <!-- Content -->
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="New Traffic Violation"
+                                         FontWeight="Bold"
+                                         FontSize="14"
+                                         Margin="0,0,0,5"/>
+                                <TextBlock TextWrapping="Wrap"
+                                         Foreground="#65676B">
+                                    Your vehicle (Plate: 29-A1 12345) was recorded speeding on Nguyen Trai Street at 15:30 today. Fine amount: 1,500,000 VND
+                                </TextBlock>
+                                <TextBlock Text="10 minutes ago"
+                                         Foreground="#1877F2"
+                                         FontSize="12"
+                                         Margin="0,5,0,0"/>
+                            </StackPanel>
+
+                            <!-- Actions -->
+                            <StackPanel Grid.Column="2" 
+                                      Orientation="Horizontal">
+                                <Button Content="View" 
+                                        Width="60"
+                                        Height="30"
+                                        Margin="0,0,5,0"
+                                        Background="#1877F2"
+                                        Foreground="White"/>
+                                <Button Content="Delete" 
+                                        Width="60"
+                                        Height="30"
+                                        Background="#DC3545"
+                                        Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- System Notification -->
+                    <Border Background="White" 
+                            Margin="0,0,0,10" 
+                            Padding="15"
+                            CornerRadius="8"
+                            BorderThickness="1"
+                            BorderBrush="#DDD">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" 
+                                    Width="40" 
+                                    Height="40" 
+                                    CornerRadius="20"
+                                    Background="#E3F2FD"
+                                    Margin="0,0,15,0">
+                                <TextBlock Text="i" 
+                                         FontSize="24"
+                                         FontWeight="Bold"
+                                         Foreground="#1565C0"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="System Maintenance Notice"
+                                         FontWeight="Bold"
+                                         FontSize="14"
+                                         Margin="0,0,0,5"/>
+                                <TextBlock TextWrapping="Wrap"
+                                         Foreground="#65676B">
+                                    The system will undergo maintenance on Saturday, July 15th, from 2 AM to 4 AM. Some services may be unavailable during this time.
+                                </TextBlock>
+                                <TextBlock Text="2 hours ago"
+                                         Foreground="#65676B"
+                                         FontSize="12"
+                                         Margin="0,5,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" 
+                                      Orientation="Horizontal">
+                                <Button Content="View" 
+                                        Width="60"
+                                        Height="30"
+                                        Margin="0,0,5,0"
+                                        Background="#1877F2"
+                                        Foreground="White"/>
+                                <Button Content="Delete" 
+                                        Width="60"
+                                        Height="30"
+                                        Background="#DC3545"
+                                        Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Payment Confirmation -->
+                    <Border Background="White" 
+                            Margin="0,0,0,10" 
+                            Padding="15"
+                            CornerRadius="8"
+                            BorderThickness="1"
+                            BorderBrush="#DDD">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" 
+                                    Width="40" 
+                                    Height="40" 
+                                    CornerRadius="20"
+                                    Background="#E8F5E9"
+                                    Margin="0,0,15,0">
+                                <TextBlock Text="✓" 
+                                         FontSize="24"
+                                         FontWeight="Bold"
+                                         Foreground="#2E7D32"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Payment Successful"
+                                         FontWeight="Bold"
+                                         FontSize="14"
+                                         Margin="0,0,0,5"/>
+                                <TextBlock TextWrapping="Wrap"
+                                         Foreground="#65676B">
+                                    Your payment of 750,000 VND for violation ticket #VT2023001 has been successfully processed.
+                                </TextBlock>
+                                <TextBlock Text="1 day ago"
+                                         Foreground="#65676B"
+                                         FontSize="12"
+                                         Margin="0,5,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" 
+                                      Orientation="Horizontal">
+                                <Button Content="View" 
+                                        Width="60"
+                                        Height="30"
+                                        Margin="0,0,5,0"
+                                        Background="#1877F2"
+                                        Foreground="White"/>
+                                <Button Content="Delete" 
+                                        Width="60"
+                                        Height="30"
+                                        Background="#DC3545"
+                                        Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Vehicle Registration -->
+                    <Border Background="White" 
+                            Margin="0,0,0,10" 
+                            Padding="15"
+                            CornerRadius="8"
+                            BorderThickness="1"
+                            BorderBrush="#DDD">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" 
+                                    Width="40" 
+                                    Height="40" 
+                                    CornerRadius="20"
+                                    Background="#FFF3E0"
+                                    Margin="0,0,15,0">
+                                <TextBlock Text="🚗" 
+                                         FontSize="20"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1">
+                                <TextBlock Text="Vehicle Registration Reminder"
+                                         FontWeight="Bold"
+                                         FontSize="14"
+                                         Margin="0,0,0,5"/>
+                                <TextBlock TextWrapping="Wrap"
+                                         Foreground="#65676B">
+                                    Your vehicle registration for plate number 29-A1 12345 will expire in 30 days. Please renew it before the expiration date.
+                                </TextBlock>
+                                <TextBlock Text="3 days ago"
+                                         Foreground="#65676B"
+                                         FontSize="12"
+                                         Margin="0,5,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" 
+                                      Orientation="Horizontal">
+                                <Button Content="View" 
+                                        Width="60"
+                                        Height="30"
+                                        Margin="0,0,5,0"
+                                        Background="#1877F2"
+                                        Foreground="White"/>
+                                <Button Content="Delete" 
+                                        Width="60"
+                                        Height="30"
+                                        Background="#DC3545"
+                                        Foreground="White"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Window>

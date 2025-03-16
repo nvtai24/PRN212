@@ -13,8 +13,11 @@ public partial class App : Application
 {
     public App()
     {
-        LoginWindow loginWindow = new();
-        loginWindow.Show(); 
+        // LoginWindow loginWindow = new();
+        // loginWindow.Show(); 
+        
+        HomeWindow homeWindow = new();
+        homeWindow.Show();
     }
     
 }

@@ -8,4 +8,11 @@ public partial class LoginWindow : Window
     {
         InitializeComponent();
     }
+
+    private void BtnLogin_OnClick(object sender, RoutedEventArgs e)
+    {
+        HomeWindow homeWindow = new HomeWindow();
+        homeWindow.Show();
+        Close();
+    }
 }

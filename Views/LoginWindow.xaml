@@ -200,7 +200,7 @@
 
                 <Button Content="Login" 
                         Style="{StaticResource LoginButtonStyle}"
-                        x:Name="btnLogin"/>
+                        x:Name="btnLogin" Click="BtnLogin_OnClick"/>
                 
                 <Button Content="Register new account" 
                         Style="{StaticResource RegisterButtonStyle}"

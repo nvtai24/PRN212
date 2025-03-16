@@ -67,9 +67,9 @@
     
     <Grid>
         <!-- Background Image -->
-        <Grid.Background>
-            <ImageBrush ImageSource="/Assets/traffic1.jpg" Opacity="0.7" Stretch="UniformToFill"/>
-        </Grid.Background>
+        <!-- <Grid.Background> -->
+        <!--     <ImageBrush ImageSource="" Opacity="0.7" Stretch="UniformToFill"/> -->
+        <!-- </Grid.Background> -->
         
         <!-- Semi-transparent overlay -->
         <Rectangle Fill="#1e3a8a" Opacity="0.75"/>
@@ -85,7 +85,7 @@
             <Border Grid.Column="0" Background="#0f172a" Opacity="0.9">
                 <StackPanel Margin="20,60,20,20">
                     <!-- System Logo and Title -->
-                    <Image Source="/Assets/traffic_logo.png" Width="80" Height="80" Margin="0,0,0,10"/>
+                    <!-- <Image Source="" Width="80" Height="80" Margin="0,0,0,10"/> -->
                     <TextBlock Text="Traffic Violation" 
                                Foreground="White" 
                                FontSize="20" 
@@ -99,7 +99,7 @@
                                Margin="0,0,0,30"/>
                     
                     <!-- Navigation Buttons -->
-                    <Button Content="Notifications" Style="{StaticResource NavigationButtonStyle}" x:Name="btnNotifications"/>
+                    <Button Content="Notifications" Style="{StaticResource NavigationButtonStyle}" x:Name="btnNotifications" Click="BtnNotifications_OnClick"/>
                     <Button Content="My Vehicles" Style="{StaticResource NavigationButtonStyle}" x:Name="btnMyVehicles"/>
                     <Button Content="Send Report" Style="{StaticResource NavigationButtonStyle}" x:Name="btnSendReport"/>
                     <Button Content="My Reports" Style="{StaticResource NavigationButtonStyle}" x:Name="btnMyReports"/>
@@ -198,28 +198,28 @@
                                     <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
                                         <StackPanel Margin="30,10">
                                             <Border Width="80" Height="80" Background="#EFF6FF" CornerRadius="10">
-                                                <Image Source="/Assets/car.png" Width="50" Height="50"/>
+                                                <Image Source="" Width="50" Height="50"/>
                                             </Border>
                                             <TextBlock Text="Add Vehicle" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Medium"/>
                                         </StackPanel>
                                         
                                         <StackPanel Margin="30,10">
                                             <Border Width="80" Height="80" Background="#FEF3C7" CornerRadius="10">
-                                                <Image Source="/Assets/report.png" Width="50" Height="50"/>
+                                                <Image Source="" Width="50" Height="50"/>
                                             </Border>
                                             <TextBlock Text="New Report" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Medium"/>
                                         </StackPanel>
                                         
                                         <StackPanel Margin="30,10">
                                             <Border Width="80" Height="80" Background="#F3F4F6" CornerRadius="10">
-                                                <Image Source="/Assets/notification.png" Width="50" Height="50"/>
+                                                <Image Source="" Width="50" Height="50"/>
                                             </Border>
                                             <TextBlock Text="Notifications" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Medium"/>
                                         </StackPanel>
                                         
                                         <StackPanel Margin="30,10">
                                             <Border Width="80" Height="80" Background="#ECFDF5" CornerRadius="10">
-                                                <Image Source="/Assets/map.png" Width="50" Height="50"/>
+                                                <Image Source="" Width="50" Height="50"/>
                                             </Border>
                                             <TextBlock Text="View Map" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Medium"/>
                                         </StackPanel>
