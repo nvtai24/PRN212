@@ -30,6 +30,11 @@ public partial class LoginPage : Page
         bool isValidUser = userDao.ValidateUser(email, password);
         if (isValidUser)
         {
+            var user = userDao.GetUserByEmail(email);
+
+            Application.Current.Properties["UserID"] = user.UserId; 
+            Application.Current.Properties["FullName"] = user.FullName; 
+            Application.Current.Properties["Email"] = user.Email;
             var currentWindow = Window.GetWindow(this);
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
