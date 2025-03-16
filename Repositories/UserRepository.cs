@@ -22,12 +22,6 @@ namespace PRN212.Repositories
             return user != null;
         }
 
-
-        public User GetUserById(int userId)
-        {
-            return _context.Users.FirstOrDefault(u => u.UserId == userId);
-        }
-
         public void AddUser(User newUser)
         {
             _context.Users.Add(newUser);
@@ -39,6 +33,9 @@ namespace PRN212.Repositories
             return _context.Users.Any(u => u.Email == email);
         }
 
-        
+        public User GetUserByEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(u => u.Email == email);
+        }
     }
 }
