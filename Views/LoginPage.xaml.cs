@@ -32,9 +32,7 @@ public partial class LoginPage : Page
         {
             var user = userDao.GetUserByEmail(email);
 
-            Application.Current.Properties["UserID"] = user.UserId; 
-            Application.Current.Properties["FullName"] = user.FullName; 
-            Application.Current.Properties["Email"] = user.Email;
+            Application.Current.Properties["User"] = user;
             var currentWindow = Window.GetWindow(this);
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();

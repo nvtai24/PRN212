@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Windows.Controls;
 using PRN212.Repositories;
+using PRN212.Models;
+using System.Windows;
 
 namespace PRN212.Views
 {
@@ -16,7 +18,10 @@ namespace PRN212.Views
         void LoadDataGridReports(string status = "All Status", DateTime? startDate = null, DateTime? endDate = null)
         {
             ReportDAO reportDAO = new ReportDAO();
-            var reports = reportDAO.GetReportsById(1);
+
+            var user = Application.Current.Properties["User"] as User;
+
+            var reports = reportDAO.GetReportsById(user.UserId);
 
             // Apply status filter only if a valid status is selected
             if (status != "All Status")
