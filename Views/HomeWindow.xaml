@@ -5,29 +5,231 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:PRN212.Views"
         mc:Ignorable="d"
-        Title="HomeWindow" Height="auto" Width="1000">
-    <Grid Background="#1E90FF"> <!-- Màu nền xanh dương -->
-        <!-- Hình ảnh minh họa giao thông (thay thế bằng các hình ảnh thực tế) -->
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Image Source="car.png" Width="100" Height="100" Margin="10" />
-            <Image Source="road.png" Width="150" Height="100" Margin="10" />
-            <Image Source="map.png" Width="120" Height="120" Margin="10" />
-        </StackPanel>
+        Title="Traffic Violation Reporting System - Home"
+        Height="600"
+        Width="1000"
+        WindowStartupLocation="CenterScreen">
+    
+    <Window.Resources>
+        <Style x:Key="NavigationButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#1e3a8a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Margin" Value="0,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1e40af"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-        <!-- Danh sách các nút điều hướng -->
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0">
-            <Button Content="Manage Vehicles" Width="200" Height="50" Margin="0,10" Background="#FFA500" Foreground="White" FontSize="16"/>
-            <Button Content="Manage Routes" Width="200" Height="50" Margin="0,10" Background="#FFA500" Foreground="White" FontSize="16" />
-            <Button Content="Manage Traffic" Width="200" Height="50" Margin="0,10" Background="#FFA500" Foreground="White" FontSize="16" />
-            <Button Content="Manage Drivers" Width="200" Height="50" Margin="0,10" Background="#FFA500" Foreground="White" FontSize="16" />
-            <Button Content="Manage Stations" Width="200" Height="50" Margin="0,10" Background="#FFA500" Foreground="White" FontSize="16"/>
-            <Button Content="Manage Schedules" Width="200" Height="50" Margin="0,10" Background="#FFA500" Foreground="White" FontSize="16" />
-            <Button Content="Manage Account" Width="200" Height="50" Margin="0,10" Background="#FFA500" Foreground="White" FontSize="16" />
-            <Button Content="Admin Dashboard" Width="200" Height="50" Margin="0,10" Background="#FFA500" Foreground="White" FontSize="16" />
-        </StackPanel>
-
-        <!-- Nút Logout -->
-        <Button Content="Logout" Width="100" Height="40" Background="#FFA500" Foreground="White" FontSize="14" 
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,10,20,0"/>
+        <Style x:Key="LogoutButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#DC2626"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#B91C1C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <!-- Background Image -->
+        <Grid.Background>
+            <ImageBrush ImageSource="/Assets/traffic1.jpg" Opacity="0.7" Stretch="UniformToFill"/>
+        </Grid.Background>
+        
+        <!-- Semi-transparent overlay -->
+        <Rectangle Fill="#1e3a8a" Opacity="0.75"/>
+        
+        <!-- Main Content -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Left Navigation Panel -->
+            <Border Grid.Column="0" Background="#0f172a" Opacity="0.9">
+                <StackPanel Margin="20,60,20,20">
+                    <!-- System Logo and Title -->
+                    <Image Source="/Assets/traffic_logo.png" Width="80" Height="80" Margin="0,0,0,10"/>
+                    <TextBlock Text="Traffic Violation" 
+                               Foreground="White" 
+                               FontSize="20" 
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Reporting System" 
+                               Foreground="White" 
+                               FontSize="20" 
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,30"/>
+                    
+                    <!-- Navigation Buttons -->
+                    <Button Content="Notifications" Style="{StaticResource NavigationButtonStyle}" x:Name="btnNotifications"/>
+                    <Button Content="My Vehicles" Style="{StaticResource NavigationButtonStyle}" x:Name="btnMyVehicles"/>
+                    <Button Content="Send Report" Style="{StaticResource NavigationButtonStyle}" x:Name="btnSendReport"/>
+                    <Button Content="My Reports" Style="{StaticResource NavigationButtonStyle}" x:Name="btnMyReports"/>
+                    <Button Content="My Violations" Style="{StaticResource NavigationButtonStyle}" x:Name="btnMyViolations"/>
+                    <Button Content="Manage Accounts (User)" Style="{StaticResource NavigationButtonStyle}" x:Name="btnManageUsers"/>
+                    <Button Content="Manage Reports" Style="{StaticResource NavigationButtonStyle}" x:Name="btnManageReports"/>
+                    <Button Content="Manage Account" Style="{StaticResource NavigationButtonStyle}" x:Name="btnManageAccount"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Right Content Area -->
+            <Grid Grid.Column="1">
+                <!-- Top Bar with User Info and Logout -->
+                <Border Height="60" VerticalAlignment="Top" Background="#FFFFFF" Opacity="0.9">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0">
+                            <Border Width="40" Height="40" CornerRadius="20" Background="#1e3a8a" Margin="0,0,10,0">
+                                <TextBlock Text="JD" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="John Doe" VerticalAlignment="Center" FontSize="16" FontWeight="Medium"/>
+                        </StackPanel>
+                        
+                        <Button Content="Logout" 
+                                Style="{StaticResource LogoutButtonStyle}" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,0,20,0"
+                                x:Name="btnLogout"/>
+                    </Grid>
+                </Border>
+                
+                <!-- Main Dashboard Area -->
+                <Border Margin="20,80,20,20" Background="White" Opacity="0.9" CornerRadius="10">
+                    <Grid>
+                        <TextBlock Text="Welcome to Traffic Violation Reporting System" 
+                                   FontSize="24" 
+                                   FontWeight="Bold" 
+                                   Foreground="#1e3a8a" 
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Top" 
+                                   Margin="0,30,0,0"/>
+                        
+                        <!-- Stats and Quick Links -->
+                        <Grid Margin="30,80,30,30">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- Statistics Cards -->
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!-- Reports Stats -->
+                                <Border Grid.Column="0" Background="#EFF6FF" CornerRadius="8" Margin="10" Padding="20">
+                                    <StackPanel>
+                                        <TextBlock Text="My Reports" FontSize="16" FontWeight="Bold" Foreground="#1e3a8a"/>
+                                        <TextBlock Text="5" FontSize="36" FontWeight="Bold" Foreground="#1e3a8a" Margin="0,10,0,0"/>
+                                        <TextBlock Text="2 pending review" FontSize="14" Foreground="#6B7280"/>
+                                    </StackPanel>
+                                </Border>
+                                
+                                <!-- Violations Stats -->
+                                <Border Grid.Column="1" Background="#FEF2F2" CornerRadius="8" Margin="10" Padding="20">
+                                    <StackPanel>
+                                        <TextBlock Text="My Violations" FontSize="16" FontWeight="Bold" Foreground="#DC2626"/>
+                                        <TextBlock Text="2" FontSize="36" FontWeight="Bold" Foreground="#DC2626" Margin="0,10,0,0"/>
+                                        <TextBlock Text="1 unpaid fine" FontSize="14" Foreground="#6B7280"/>
+                                    </StackPanel>
+                                </Border>
+                                
+                                <!-- Vehicles Stats -->
+                                <Border Grid.Column="2" Background="#ECFDF5" CornerRadius="8" Margin="10" Padding="20">
+                                    <StackPanel>
+                                        <TextBlock Text="My Vehicles" FontSize="16" FontWeight="Bold" Foreground="#047857"/>
+                                        <TextBlock Text="3" FontSize="36" FontWeight="Bold" Foreground="#047857" Margin="0,10,0,0"/>
+                                        <TextBlock Text="All registered" FontSize="14" Foreground="#6B7280"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                            
+                            <!-- Quick Actions Section -->
+                            <Border Grid.Row="1" Background="#F9FAFB" CornerRadius="8" Margin="10,20,10,10" Padding="20">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    
+                                    <TextBlock Grid.Row="0" Text="Quick Actions" FontSize="18" FontWeight="Bold" Foreground="#1e3a8a" Margin="0,0,0,20"/>
+                                    
+                                    <!-- Action Icons -->
+                                    <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
+                                        <StackPanel Margin="30,10">
+                                            <Border Width="80" Height="80" Background="#EFF6FF" CornerRadius="10">
+                                                <Image Source="/Assets/car.png" Width="50" Height="50"/>
+                                            </Border>
+                                            <TextBlock Text="Add Vehicle" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Medium"/>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Margin="30,10">
+                                            <Border Width="80" Height="80" Background="#FEF3C7" CornerRadius="10">
+                                                <Image Source="/Assets/report.png" Width="50" Height="50"/>
+                                            </Border>
+                                            <TextBlock Text="New Report" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Medium"/>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Margin="30,10">
+                                            <Border Width="80" Height="80" Background="#F3F4F6" CornerRadius="10">
+                                                <Image Source="/Assets/notification.png" Width="50" Height="50"/>
+                                            </Border>
+                                            <TextBlock Text="Notifications" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Medium"/>
+                                        </StackPanel>
+                                        
+                                        <StackPanel Margin="30,10">
+                                            <Border Width="80" Height="80" Background="#ECFDF5" CornerRadius="10">
+                                                <Image Source="/Assets/map.png" Width="50" Height="50"/>
+                                            </Border>
+                                            <TextBlock Text="View Map" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Medium"/>
+                                        </StackPanel>
+                                    </WrapPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
