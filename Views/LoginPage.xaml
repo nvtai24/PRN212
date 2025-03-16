@@ -1,0 +1,185 @@
+﻿<Page x:Class="PRN212.Views.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:PRN212.Views"
+      mc:Ignorable="d"
+      Title="LoginPage">
+
+    <Page.Resources>
+        <Style x:Key="LoginButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#1e3a8a"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="20,12"/>
+            <Setter Property="Margin" Value="0,10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1e40af"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="10" Color="#1e3a8a" Opacity="0.3" ShadowDepth="2"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="FancyTextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#d1d5db"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Margin" Value="0,5,0,15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" Value="#2563eb"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="true">
+                                <Setter Property="BorderBrush" Value="#2563eb"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="5" Color="#2563eb" Opacity="0.3" ShadowDepth="0"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="FancyPasswordBoxStyle" TargetType="{x:Type PasswordBox}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#d1d5db"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="Margin" Value="0,5,0,15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" Value="#2563eb"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="true">
+                                <Setter Property="BorderBrush" Value="#2563eb"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="5" Color="#2563eb" Opacity="0.3" ShadowDepth="0"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Border Background="White" Margin="20">
+        <StackPanel Margin="30" VerticalAlignment="Center">
+            <Image Source="/Assets/traffic_safety.png" 
+                   Width="120" 
+                   Height="100" 
+                   Margin="0,0,0,20"/>
+            
+            <TextBlock Text="Login" 
+                      FontSize="28" 
+                      FontWeight="Bold" 
+                      Foreground="#1e3a8a"
+                      HorizontalAlignment="Center"
+                      Margin="0,0,0,5"/>
+            
+            <TextBlock Text="Login to continue" 
+                      FontSize="14" 
+                      Foreground="#6b7280"
+                      HorizontalAlignment="Center"
+                      Margin="0,0,0,30"/>
+
+            <TextBlock Text="Username or Email" 
+                      FontSize="14" 
+                      FontWeight="Medium"
+                      Foreground="#4b5563"/>
+            <TextBox Style="{StaticResource FancyTextBoxStyle}" 
+                     x:Name="txtUsername" 
+                     FontSize="14"/>
+
+            <TextBlock Text="Password" 
+                      FontSize="14" 
+                      FontWeight="Medium"
+                      Foreground="#4b5563"/>
+            <PasswordBox Style="{StaticResource FancyPasswordBoxStyle}" 
+                        x:Name="txtPassword"
+                        FontSize="14"/>
+
+            <TextBlock HorizontalAlignment="Right" Margin="0,0,0,20">
+                <Hyperlink Foreground="#2563eb" 
+                          TextDecorations="None"
+                          Name="ForgotPassword"
+                          Click="ForgotPassword_OnClick">
+                    Forgot password?
+                </Hyperlink>
+            </TextBlock>
+
+            <Button Content="Login" 
+                    Style="{StaticResource LoginButtonStyle}"
+                    Height="48"
+                    x:Name="btnLogin" 
+                    Click="BtnLogin_OnClick">
+                <Button.Effect>
+                    <DropShadowEffect BlurRadius="8" Color="#1e3a8a" Opacity="0.2" ShadowDepth="1"/>
+                </Button.Effect>
+            </Button>
+            
+            <TextBlock Text="Don't have an account?" 
+                      FontSize="14" 
+                      Foreground="#6b7280"
+                      HorizontalAlignment="Center"
+                      Margin="0,20,0,0"/>
+            
+            <TextBlock HorizontalAlignment="Center">
+                <Hyperlink Foreground="#2563eb" 
+                          TextDecorations="None"
+                          FontWeight="Medium"
+                          Name="Register"
+                          Click="Register_OnClick">
+                    Register here
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </Border>
+</Page>

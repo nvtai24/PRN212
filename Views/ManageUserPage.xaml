@@ -1,0 +1,184 @@
+﻿<Page x:Class="PRN212.Views.ManageUserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:PRN212.Views"
+      mc:Ignorable="d"
+      Background="White"
+      Title="Manage Users">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header and Filters -->
+        <StackPanel Grid.Row="0" Margin="40,40,40,20">
+            <!-- Header -->
+            <TextBlock Text="Manage Users" 
+                      FontSize="28" 
+                      FontWeight="SemiBold"
+                      Margin="0,0,0,30"/>
+
+            <!-- Filters -->
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search -->
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Search" 
+                             Margin="0,0,0,5"/>
+                    <TextBox x:Name="SearchTextBox"
+                            Height="35"/>
+                </StackPanel>
+
+                <!-- Role Filter -->
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Role" 
+                             Margin="0,0,0,5"/>
+                    <ComboBox x:Name="RoleComboBox"
+                            Height="35">
+                        <ComboBoxItem>All Roles</ComboBoxItem>
+                        <ComboBoxItem>Admin</ComboBoxItem>
+                        <ComboBoxItem>Police</ComboBoxItem>
+                        <ComboBoxItem>User</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Status Filter -->
+                <StackPanel Grid.Column="4">
+                    <TextBlock Text="Status" 
+                             Margin="0,0,0,5"/>
+                    <ComboBox x:Name="StatusComboBox"
+                            Height="35">
+                        <ComboBoxItem>All Status</ComboBoxItem>
+                        <ComboBoxItem>Active</ComboBoxItem>
+                        <ComboBoxItem>Inactive</ComboBoxItem>
+                        <ComboBoxItem>Blocked</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Apply Filter Button -->
+                <Button Grid.Column="6"
+                        Content="Apply Filters"
+                        Height="35"
+                        Width="100"
+                        VerticalAlignment="Bottom"
+                        Background="#2196F3"
+                        Foreground="White"/>
+            </Grid>
+
+            <!-- Action Buttons -->
+            <StackPanel Orientation="Horizontal" 
+                      HorizontalAlignment="Right">
+                <Button Content="Add New User"
+                        Height="35"
+                        Width="120"
+                        Background="#4CAF50"
+                        Foreground="White"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Users DataGrid -->
+        <DataGrid Grid.Row="1" 
+                  x:Name="UsersDataGrid"
+                  Margin="40,20,40,40"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeRows="False"
+                  CanUserSortColumns="True"
+                  AlternatingRowBackground="#F5F5F5"
+                  RowHeaderWidth="0"
+                  BorderBrush="#E0E0E0"
+                  BorderThickness="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" 
+                                  Binding="{Binding UserId}" 
+                                  Width="80"/>
+                <DataGridTextColumn Header="Username" 
+                                  Binding="{Binding Username}" 
+                                  Width="150"/>
+                <DataGridTextColumn Header="Full Name" 
+                                  Binding="{Binding FullName}" 
+                                  Width="200"/>
+                <DataGridTextColumn Header="Email" 
+                                  Binding="{Binding Email}" 
+                                  Width="200"/>
+                <DataGridTextColumn Header="Role" 
+                                  Binding="{Binding Role}" 
+                                  Width="100"/>
+                <DataGridTextColumn Header="Status" 
+                                  Binding="{Binding Status}" 
+                                  Width="100"/>
+                <DataGridTemplateColumn Header="Actions" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Edit"
+                                        Height="30"
+                                        Width="70"
+                                        Margin="0,0,5,0"
+                                        Background="#2196F3"
+                                        Foreground="White"/>
+                                <Button Content="Block"
+                                        Height="30"
+                                        Width="70"
+                                        Margin="0,0,5,0"
+                                        Background="#FF9800"
+                                        Foreground="White"/>
+                                <Button Content="Delete"
+                                        Height="30"
+                                        Width="70"
+                                        Background="#F44336"
+                                        Foreground="White"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Bottom Panel -->
+        <Border Grid.Row="1" 
+                Background="White"
+                BorderBrush="#E0E0E0"
+                BorderThickness="1"
+                VerticalAlignment="Bottom"
+                Margin="40,0,40,40">
+            <Grid Margin="20">
+                <StackPanel Orientation="Horizontal" 
+                          HorizontalAlignment="Left">
+                    <TextBlock Text="Total Users: " 
+                             FontWeight="SemiBold"/>
+                    <TextBlock Text="0" 
+                             Margin="5,0,20,0"/>
+                    <TextBlock Text="Active: " 
+                             FontWeight="SemiBold"/>
+                    <TextBlock Text="0" 
+                             Margin="5,0,20,0"/>
+                    <TextBlock Text="Blocked: " 
+                             FontWeight="SemiBold"/>
+                    <TextBlock Text="0" 
+                             Margin="5,0"/>
+                </StackPanel>
+                <Button Content="Export User List"
+                        Height="35"
+                        Width="120"
+                        HorizontalAlignment="Right"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

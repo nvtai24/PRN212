@@ -1,0 +1,124 @@
+﻿<Window x:Class="PRN212.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:PRN212.Views"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="auto" Width="auto">
+
+    <Window.Resources>
+        <Style x:Key="NavigationButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#1e3a8a" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="Width" Value="220" />
+            <Setter Property="Margin" Value="0,8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1e40af" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="LogoutButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#DC2626" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="100" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#B91C1C" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Background Image -->
+        <!-- <Grid.Background> -->
+        <!--     <ImageBrush ImageSource="" Opacity="0.7" Stretch="UniformToFill"/> -->
+        <!-- </Grid.Background> -->
+
+        <!-- Semi-transparent overlay -->
+        <Rectangle Fill="#1e3a8a" Opacity="0.75" />
+
+        <!-- Main Content -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="260" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Navigation Panel -->
+            <Border Grid.Column="0" Background="#0f172a" Opacity="0.9">
+                <StackPanel Margin="20,60,20,20">
+                    <!-- System Logo and Title -->
+                    <!-- <Image Source="" Width="80" Height="80" Margin="0,0,0,10"/> -->
+                    <TextBlock Text="Traffic Violation"
+                               Foreground="White"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center" />
+                    <TextBlock Text="Reporting System"
+                               Foreground="White"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,30" />
+
+                    <!-- Navigation Buttons -->
+                    <Button Content="🏠 Home" Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="btnHome"  Click="BtnHome_OnClick"/>
+                    <Button Content="🔔 Notifications" Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="btnNotifications"  Click="BtnNotifications_OnClick"/>
+                    <Button Content="🚘 My Vehicles" Style="{StaticResource NavigationButtonStyle}" x:Name="btnMyVehicles"
+                             Click="BtnMyVehicles_OnClick"/>
+                    <Button Content="🚩Send Report" Style="{StaticResource NavigationButtonStyle}" x:Name="btnSendReport" 
+                            Click="BtnSendReport_OnClick"/>
+                    <Button Content="🤔 My Reports" Style="{StaticResource NavigationButtonStyle}" x:Name="btnMyReports"
+                            Click="BtnMyReports_OnClick"/>
+                    <Button Content="🚨 My Violations" Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="btnMyViolations" Click="BtnMyViolations_OnClick"/>
+                    <Button Content="👥 Manage Accounts (User)" Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="btnManageUsers" Click="BtnManageUsers_OnClick"/>
+                    <Button Content="📈 Manage Reports" Style="{StaticResource NavigationButtonStyle}"
+                            x:Name="btnManageReports" Click="BtnManageReports_OnClick"/>
+                </StackPanel>
+            </Border>
+            
+            <Frame Grid.Column="1" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+
+        </Grid>
+
+
+    </Grid>
+</Window>

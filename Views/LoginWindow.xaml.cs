@@ -7,12 +7,7 @@ public partial class LoginWindow : Window
     public LoginWindow()
     {
         InitializeComponent();
+        HeadFrame.Navigate(new LoginPage());
     }
-
-    private void BtnLogin_OnClick(object sender, RoutedEventArgs e)
-    {
-        HomeWindow homeWindow = new HomeWindow();
-        homeWindow.Show();
-        Close();
-    }
+    
 }

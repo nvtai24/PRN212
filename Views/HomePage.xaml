@@ -1,0 +1,107 @@
+﻿<Page x:Class="PRN212.Views.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:PRN212.Views"
+      mc:Ignorable="d"
+      Title="HomePage">
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Decoration (có thể thêm wave hoặc pattern) -->
+        <!-- <Path Grid.Row="0"  -->
+        <!--       Fill="#1e3a8a"  -->
+        <!--       Opacity="0.1" -->
+        <!--       Data="M0,50 C150,100 350,0 500,50 L500,0 L0,0 Z" -->
+        <!--       Stretch="Fill" -->
+        <!--       Height="100" -->
+        <!--       VerticalAlignment="Top"/> -->
+
+        <!-- Main Content -->
+        <StackPanel Grid.Row="1" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center"
+                    MaxWidth="600">
+            
+            <!-- Welcome Image -->
+            <Border Width="250" 
+                    Height="250" 
+                    CornerRadius="125"
+                    Background="#EFF6FF"
+                    Margin="0,0,0,40">
+                <Image Source="/Assets/welcome-image.png" 
+                       Width="200" 
+                       Height="200"/>
+            </Border>
+            
+            <!-- Welcome Message -->
+            <TextBlock Text="Welcome to" 
+                      FontSize="24" 
+                      Foreground="#6B7280"
+                      HorizontalAlignment="Center"/>
+            
+            <TextBlock Text="Traffic Violation Reporting System" 
+                      FontSize="36" 
+                      FontWeight="Bold"
+                      Foreground="#1e3a8a" 
+                      HorizontalAlignment="Center"
+                      TextWrapping="Wrap"
+                      TextAlignment="Center"
+                      Margin="0,10,0,20"/>
+            
+            <!-- User Info -->
+            <Border Background="#F3F4F6" 
+                    CornerRadius="10" 
+                    Padding="20"
+                    Margin="20,0">
+                <StackPanel>
+                    <TextBlock Text="{Binding UserName}" 
+                              FontSize="24" 
+                              FontWeight="SemiBold"
+                              Foreground="#4B5563" 
+                              HorizontalAlignment="Center"/>
+                    
+                    <TextBlock Text="{Binding CurrentDateTime, StringFormat='dd MMMM yyyy, HH:mm'}" 
+                              FontSize="16" 
+                              Foreground="#9CA3AF" 
+                              HorizontalAlignment="Center"
+                              Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Navigation Hint -->
+            <Border Background="#EFF6FF" 
+                    CornerRadius="8" 
+                    Padding="20,15"
+                    Margin="20,20,20,0">
+                <StackPanel Orientation="Horizontal" 
+                           HorizontalAlignment="Center">
+                    <Path Data="M12,2L2,7L12,12L22,7L12,2Z" 
+                          Fill="#1e3a8a" 
+                          Width="16" 
+                          Height="16" 
+                          Margin="0,0,10,0"
+                          Stretch="Uniform"/>
+                    <TextBlock Text="Use the sidebar menu to navigate through the system" 
+                              FontSize="14" 
+                              Foreground="#1e3a8a"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <!-- Bottom Decoration -->
+        <!-- <Path Grid.Row="2"  -->
+        <!--       Fill="#1e3a8a"  -->
+        <!--       Opacity="0.1" -->
+        <!--       Data="M0,50 C150,0 350,100 500,50 L500,100 L0,100 Z" -->
+        <!--       Stretch="Fill" -->
+        <!--       Height="100" -->
+        <!--       VerticalAlignment="Bottom"/> -->
+    </Grid>
+</Page>
