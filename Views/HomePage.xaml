@@ -35,7 +35,7 @@
                     CornerRadius="125"
                     Background="#EFF6FF"
                     Margin="0,0,0,40">
-                <Image Source="/Assets/welcome-image.png" 
+                <Image Source="../Assets/Images/traffic1.jpg" 
                        Width="200" 
                        Height="200"/>
             </Border>
@@ -65,7 +65,8 @@
                               FontSize="24" 
                               FontWeight="SemiBold"
                               Foreground="#4B5563" 
-                              HorizontalAlignment="Center"/>
+                              HorizontalAlignment="Center"
+                               Name="txtUsername"/>
                     
                     <TextBlock Text="{Binding CurrentDateTime, StringFormat='dd MMMM yyyy, HH:mm'}" 
                               FontSize="16" 
