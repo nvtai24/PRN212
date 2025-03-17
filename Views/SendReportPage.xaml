@@ -29,30 +29,6 @@
                            VerticalContentAlignment="Center"
                            Padding="5,0"/>
 
-                    <!-- Date and Time Section -->
-                    <TextBlock Text="Date and Time" 
-                             FontWeight="SemiBold" 
-                             Margin="0,0,0,8"/>
-                    <Grid Margin="0,0,0,20">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <DatePicker x:Name="DatePicker"
-                                  Height="35"
-                                  VerticalContentAlignment="Center"/>
-                        <ComboBox Grid.Column="2"
-                                x:Name="TimeComboBox"
-                                Height="35"
-                                VerticalContentAlignment="Center">
-                            <ComboBoxItem Content="Morning"/>
-                            <ComboBoxItem Content="Afternoon"/>
-                            <ComboBoxItem Content="Evening"/>
-                            <ComboBoxItem Content="Night"/>
-                        </ComboBox>
-                    </Grid>
-
                     <!-- Violation Type -->
                     <TextBlock Text="Violation Type" 
                              FontWeight="SemiBold" 
@@ -72,11 +48,12 @@
                     <TextBlock Text="License Plate (if available)" 
                              FontWeight="SemiBold" 
                              Margin="0,0,0,8"/>
-                    <TextBox x:Name="LicensePlateTextBox"
-                           Height="35"
-                           Margin="0,0,0,20"
-                           VerticalContentAlignment="Center"
-                           Padding="5,0"/>
+                    <ComboBox x:Name="LicensePlateComboBox"
+                              Height="35"
+                              Margin="0,0,0,20"
+                              VerticalAlignment="Center"
+                              VerticalContentAlignment="Center"
+                              Padding="5,0"/>
 
                     <!-- Description -->
                     <TextBlock Text="Description" 
@@ -91,34 +68,43 @@
                            Padding="5"/>
 
                     <!-- Evidence Upload -->
-                    <TextBlock Text="Evidence" 
-           FontWeight="SemiBold" 
-           Margin="0,0,0,8"/>
-                    <Border Background="#F5F5F5"
-        BorderBrush="#E0E0E0"
-        BorderThickness="1"
-        Margin="0,0,0,20">
+                    <TextBlock Text="Evidence" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <Border Background="#F5F5F5" BorderBrush="#E0E0E0" BorderThickness="1" Margin="0,0,0,20">
                         <StackPanel Margin="20">
-                            <TextBlock Text="Upload Evidence"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,10"/>
-                            <Button Content="Choose Files"
-                Width="120"
-                Height="30"
-                Background="#2196F3"
-                Foreground="White"
-                Click="ChooseFileButton_Click"/>
-                            <TextBlock Text="Maximum file size: 10MB"
-                   HorizontalAlignment="Center"
-                   Margin="0,10,0,0"
-                   Foreground="Gray"/>
-                            <!-- Display the selected file path -->
-                            <TextBox x:Name="SelectedFilePathTextBox"
-                 Height="35"
-                 Margin="0,10,0,0"
-                 IsReadOnly="True"
-                 VerticalContentAlignment="Center"
-                 Padding="5,0"/>
+                            <TextBlock Text="Upload Evidence" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                            <!-- Grid Layout for Image and Video Upload -->
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Upload Image -->
+                                <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                                    <Button Content="Choose Image" Width="120" Height="30" Background="#2196F3" Foreground="White" Click="ChooseImageButton_Click"/>
+                                    <TextBlock Text="Maximum file size: 10MB" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="Gray"/>
+                                    <TextBox x:Name="SelectedImagePathTextBox" Height="35" Width="200" Margin="0,10,0,0" IsReadOnly="True" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                                    <!-- Preview Image -->
+                                    <Image x:Name="ImagePreview" Width="200" Height="150" HorizontalAlignment="Center" Margin="10,10,10,0" Visibility="Collapsed"/>
+                                </StackPanel>
+
+                                <!-- Upload Video -->
+                                <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
+                                    <Button Content="Choose Video" Width="120" Height="30" Background="#2196F3" Foreground="White" Click="ChooseVideoButton_Click"/>
+                                    <TextBlock Text="Maximum file size: 10MB" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="Gray"/>
+                                    <TextBox x:Name="SelectedVideoPathTextBox" Height="35" Width="200" Margin="0,10,0,0" IsReadOnly="True" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                                    <!-- Preview Video -->
+                                    <MediaElement x:Name="VideoPreview" Width="200" Height="150" HorizontalAlignment="Center" Margin="10,10,10,0" Visibility="Collapsed" LoadedBehavior="Manual" UnloadedBehavior="Manual"/>
+
+                                </StackPanel>
+                            </Grid>
                         </StackPanel>
                     </Border>
 
