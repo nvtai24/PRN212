@@ -112,7 +112,7 @@
 
     <Border Background="White" Margin="20">
         <StackPanel Margin="30" VerticalAlignment="Center">
-            <Image Source="/Assets/traffic_safety.png" 
+            <Image Source="../Assets/Images/logo.jpg" 
                    Width="120" 
                    Height="100" 
                    Margin="0,0,0,20"/>
