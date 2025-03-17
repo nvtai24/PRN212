@@ -16,5 +16,19 @@ namespace PRN212.Repositories
                 .Where(r => r.ReporterId == UserId).ToList();
             return reports;
         }
+
+        public void SendReport(Report report)
+        {
+            Prn212Context context = new Prn212Context();
+            context.Reports.Add(report);
+            context.SaveChanges();
+        }
+
+        public List<Vehicle> GetPlates()
+        {
+            Prn212Context context = new Prn212Context();
+            var vehicles = context.Vehicles.ToList();
+            return vehicles;
+        }
     }
 }
