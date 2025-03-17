@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using PRN212.Models;
 
 namespace PRN212.Views;
 
@@ -10,7 +12,17 @@ public partial class HomePage : Page
     public HomePage()
     {
         InitializeComponent();
-        UserName = "John Doe"; // Thay bằng tên người dùng thực từ hệ thống
+        if (Application.Current.Properties.Contains("User"))
+        {
+            // Lấy đối tượng User từ session
+            User user = Application.Current.Properties["User"] as User;
+
+            if (user != null)
+            {
+                // Hiển thị tên người dùng (FullName) trong TextBlock
+                txtUsername.Text = "Welcome, " + user.FullName;
+            }
+        }
         CurrentDateTime = DateTime.Now;
         this.DataContext = this;
     }

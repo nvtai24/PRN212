@@ -5,7 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:local="clr-namespace:PRN212.Views"
       mc:Ignorable="d"
-      Title="LoginPage">
+      Title="LoginPage" >
 
     <Page.Resources>
         <Style x:Key="LoginButtonStyle" TargetType="Button">
@@ -130,7 +130,7 @@
                       HorizontalAlignment="Center"
                       Margin="0,0,0,30"/>
 
-            <TextBlock Text="Username or Email" 
+            <TextBlock Text="Email" 
                       FontSize="14" 
                       FontWeight="Medium"
                       Foreground="#4b5563"/>

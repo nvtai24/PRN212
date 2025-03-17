@@ -146,14 +146,6 @@
                      x:Name="txtEmail" 
                      FontSize="14"/>
 
-            <TextBlock Text="Username" 
-                      FontSize="14" 
-                      FontWeight="Medium"
-                      Foreground="#4b5563"/>
-            <TextBox Style="{StaticResource FancyTextBoxStyle}" 
-                     x:Name="txtUsername" 
-                     FontSize="14"/>
-
             <TextBlock Text="Password" 
                       FontSize="14" 
                       FontWeight="Medium"
@@ -170,6 +162,22 @@
                         x:Name="txtConfirmPassword"
                         FontSize="14"/>
 
+            <TextBlock Text="Phone" 
+                     FontSize="14" 
+                     FontWeight="Medium"
+                     Foreground="#4b5563"/>
+            <TextBox Style="{StaticResource FancyTextBoxStyle}" 
+                     x:Name="txtPhone"
+                     FontSize="14"/>
+
+            <TextBlock Text="Address" 
+                     FontSize="14" 
+                     FontWeight="Medium"
+                     Foreground="#4b5563"/>
+            <TextBox Style="{StaticResource FancyTextBoxStyle}" 
+                     x:Name="txtAddress"
+                     FontSize="14"/>
+            
             <Button Content="Register" 
                     Style="{StaticResource RegisterButtonStyle}"
                     Height="48"
