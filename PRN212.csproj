@@ -21,10 +21,19 @@
       <None Update="appsettings.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="Assets\Images\logo.jpg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Assets\Videos\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Update="Views\LoginPage.xaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Page>
     </ItemGroup>
 
 </Project>

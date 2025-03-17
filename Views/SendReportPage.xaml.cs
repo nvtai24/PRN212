@@ -2,101 +2,176 @@
 using System.Windows.Controls;
 using Microsoft.Win32;
 using System.IO;
+using System.Windows.Media.Imaging;
+using PRN212.Models;
+using PRN212.Repositories;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace PRN212.Views;
 
 public partial class SendReportPage : Page
 {
-    private string selectedFilePath; // Lưu đường dẫn file tạm thời
+    private string selectedImagePath = string.Empty;
+    private string selectedVideoPath = string.Empty;
 
     public SendReportPage()
     {
         InitializeComponent();
+        LoadComboBoxLicensePlate();
     }
 
-    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+    void LoadComboBoxLicensePlate()
+    {
+        ReportDAO reportDAO = new ReportDAO();
+        var vehicles = reportDAO.GetPlates();
+        this.LicensePlateComboBox.ItemsSource = vehicles;
+        this.LicensePlateComboBox.DisplayMemberPath = "PlateNumber";
+        this.LicensePlateComboBox.SelectedValuePath = "PlateNumber";
+        this.LicensePlateComboBox.SelectedIndex = 0;
+    }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
     {
         // Lấy dữ liệu từ các điều khiển
         string location = LocationTextBox.Text;
-        string date = DatePicker.SelectedDate?.ToString("yyyy-MM-dd") ?? "Not selected";
-        string time = (TimeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Not selected";
-        string violationType = (ViolationTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Not selected";
-        string licensePlate = LicensePlateTextBox.Text;
+        string violationType = ViolationTypeComboBox.SelectedValue as string;
+        string licensePlate = LicensePlateComboBox.SelectedValue.ToString();
         string description = DescriptionTextBox.Text;
 
-        // Hiển thị dữ liệu trong MessageBox
-        string message = $"Location: {location}\n" +
-                         $"Date: {date}\n" +
-                         $"Time: {time}\n" +
-                         $"Violation Type: {violationType}\n" +
-                         $"License Plate: {licensePlate}\n" +
-                         $"Description: {description}\n";
+        if (string.IsNullOrEmpty(location))
+        {
+            MessageBox.Show("Please enter location.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(violationType))
+        {
+            MessageBox.Show("Please enter violation type.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(licensePlate))
+        {
+            MessageBox.Show("Please enter licensePlate.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(description))
+        {
+            MessageBox.Show("Please enter description.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        var user = Application.Current.Properties["User"] as User;
+
+        // Tạo đối tượng Report mới
+        var report = new Report
+        {
+            ReporterId = user.UserId, // Bạn cần thay đổi giá trị này phù hợp với ID của người báo cáo
+            ViolationType = violationType,
+            Description = description,
+            PlateNumber = licensePlate,
+            Location = location,
+            ReportDate = DateTime.Now, // Hoặc sử dụng giá trị date nếu cần
+        };
 
         // Kiểm tra nếu có đường dẫn ảnh được chọn
-        if (!string.IsNullOrEmpty(selectedFilePath))
+        if (!string.IsNullOrEmpty(selectedImagePath))
         {
-            // Lấy tên file từ đường dẫn và thêm vào message
-            string fileName = Path.GetFileName(selectedFilePath);
-            message += $"Evidence File: {fileName}";
-
-            // Xác định thư mục dựa trên loại file (Ảnh hay Video)
+            string imageFileName = Path.GetFileName(selectedImagePath);
             string projectFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Assets");
+            string imageFolder = Path.Combine(projectFolder, "Images");
 
-            // Kiểm tra loại file (Ảnh hoặc Video)
-            string extension = Path.GetExtension(selectedFilePath).ToLower();
-            string fileTypeFolder = extension switch
+            if (!Directory.Exists(imageFolder))
             {
-                ".jpg" or ".jpeg" or ".png" or ".gif" or ".bmp" => "Images",
-                ".mp4" or ".avi" or ".mkv" => "Videos",
-                _ => null
-            };
-
-            // Kiểm tra xem có thư mục hợp lệ không
-            if (!string.IsNullOrEmpty(fileTypeFolder))
-            {
-                // Tạo đường dẫn đến thư mục tương ứng
-                string fileFolder = Path.Combine(projectFolder, fileTypeFolder);
-
-                // Tạo thư mục nếu chưa tồn tại
-                if (!Directory.Exists(fileFolder))
-                {
-                    Directory.CreateDirectory(fileFolder);
-                }
-
-                string newFilePath = Path.Combine(fileFolder, fileName);
-
-                // Sao chép file vào thư mục tương ứng (Ảnh hoặc Video)
-                File.Copy(selectedFilePath, newFilePath, true);
+                Directory.CreateDirectory(imageFolder);
             }
-            else
-            {
-                message += "\nInvalid file type.";
-            }
+
+            string newImagePath = Path.Combine(imageFolder, imageFileName);
+            File.Copy(selectedImagePath, newImagePath, true);
+
+            // Gán đường dẫn ảnh vào đối tượng report
+            report.ImageUrl = Path.Combine("Images", imageFileName);
         }
         else
         {
-            message += "No evidence file selected.";
+            report.ImageUrl = null;
         }
 
-        // Hiển thị tất cả dữ liệu trong MessageBox
-        MessageBox.Show(message, "Submitted Data", MessageBoxButton.OK, MessageBoxImage.Information);
-    }
-
-    private void ChooseFileButton_Click(object sender, System.Windows.RoutedEventArgs e)
-    {
-        // Khởi tạo OpenFileDialog để chọn file
-        OpenFileDialog openFileDialog = new OpenFileDialog();
-        openFileDialog.Filter = "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.bmp)|*.jpg;*.jpeg;*.png;*.gif;*.bmp|" +
-                                "Video Files (*.mp4; *.avi; *.mkv)|*.mp4;*.avi;*.mkv|" +
-                                "All Files (*.*)|*.*";
-
-        // Hiển thị dialog và kiểm tra nếu người dùng chọn file
-        if (openFileDialog.ShowDialog() == true)
+        // Kiểm tra nếu có đường dẫn video được chọn
+        if (!string.IsNullOrEmpty(selectedVideoPath))
         {
-            selectedFilePath = openFileDialog.FileName;
+            string videoFileName = Path.GetFileName(selectedVideoPath);
+            string projectFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Assets");
+            string videoFolder = Path.Combine(projectFolder, "Videos");
 
-            // Cập nhật TextBox để hiển thị đường dẫn của file đã chọn
-            SelectedFilePathTextBox.Text = selectedFilePath;
+            if (!Directory.Exists(videoFolder))
+            {
+                Directory.CreateDirectory(videoFolder);
+            }
+
+            string newVideoPath = Path.Combine(videoFolder, videoFileName);
+            File.Copy(selectedVideoPath, newVideoPath, true);
+
+            // Gán đường dẫn video vào đối tượng report
+            report.VideoUrl = Path.Combine("Videos", videoFileName);
+        }
+        else
+        {
+            report.VideoUrl = null;
+        }
+
+        // Hiển thị thông báo
+        ReportDAO reportDao = new ReportDAO();
+        reportDao.SendReport(report);
+        MessageBox.Show($"Report submitted successfully!\nLocation: {location}\nViolation Type: {violationType}\nLicense Plate: {licensePlate}\nDescription: {description}\nImage URL: {report.ImageUrl}\nVideo URL: {report.VideoUrl}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+
+
+    private void ChooseImageButton_Click(object sender, RoutedEventArgs e)
+    {
+        // Mở hộp thoại chọn ảnh
+        var fileDialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp",
+            Title = "Select an Image"
+        };
+
+        if (fileDialog.ShowDialog() == true)
+        {
+            selectedImagePath = fileDialog.FileName;
+            SelectedImagePathTextBox.Text = selectedImagePath;
+
+            // Hiển thị preview ảnh
+            ImagePreview.Visibility = Visibility.Visible;
+            ImagePreview.Source = new BitmapImage(new Uri(selectedImagePath));
         }
     }
+
+    private void ChooseVideoButton_Click(object sender, RoutedEventArgs e)
+    {
+        // Mở hộp thoại chọn video
+        var fileDialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Filter = "Video Files|*.mp4;*.avi;*.mkv",
+            Title = "Select a Video"
+        };
+
+        if (fileDialog.ShowDialog() == true)
+        {
+            selectedVideoPath = fileDialog.FileName;
+            SelectedVideoPathTextBox.Text = selectedVideoPath;
+
+            // Hiển thị preview video
+            VideoPreview.Visibility = Visibility.Visible;
+            VideoPreview.Source = new Uri(selectedVideoPath);
+
+            // Phát video khi đã chọn
+            VideoPreview.Play();
+        }
+    }
+
+
+
 }
