@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:PRN212.Views"
-
       mc:Ignorable="d"
       Title="NotificationPage">
 
@@ -59,7 +58,7 @@
                       VerticalScrollBarVisibility="Auto">
             <StackPanel Margin="20,0">
                 <!-- Today Section -->
-                <TextBlock Text="Today"
+                <TextBlock Text="Latest"
                            FontSize="16"
                            FontWeight="SemiBold"
                            Foreground="#4B5563"
@@ -109,30 +108,28 @@
                                                    Margin="0,5,0,0"/>
                                     </StackPanel>
 
-
                                     <!-- Unread Indicator -->
-                                    <CheckBox IsChecked="{Binding IsRead}" Name="IsReadCb" Click="IsReadCb_Checked">
-
+                                    <CheckBox IsChecked="{Binding IsRead}"
+                                              Name="IsReadCb"
+                                              Click="IsReadCb_Checked">
                                     </CheckBox>
 
-
-
                                     <Button Grid.Column="2"
-                                        Content="Read More"
-                                        Padding="15,8"
-                                        Background="Green"
-                                        Foreground="White"
-                                        BorderThickness="0"
-                                        VerticalAlignment="Center">
+                                            Content="Read More"
+                                            Name="ReadMoreBtn"
+                                            Click="ReadMoreBtn_OnClick"
+                                            Padding="15,8"
+                                            Background="Green"
+                                            Foreground="White"
+                                            BorderThickness="0"
+                                            VerticalAlignment="Center">
                                         <Button.Resources>
                                             <Style TargetType="Border">
-                                                <Setter Property="CornerRadius" Value="6"/>
+                                                <Setter Property="CornerRadius"
+                                                        Value="6"/>
                                             </Style>
                                         </Button.Resources>
                                     </Button>
-                                    
-                                    
-
 
                                 </Grid>
                             </Border>
@@ -141,8 +138,6 @@
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
-
-
 
         <!-- Empty State (Hidden by default) -->
         <Grid Grid.Row="1"
