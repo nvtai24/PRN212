@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using PRN212.Repositories;
 using PRN212.Models;
 using System.Windows;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Security.Cryptography;
 
 namespace PRN212.Views
 {
@@ -19,7 +21,7 @@ namespace PRN212.Views
         {
             ReportDAO reportDAO = new ReportDAO();
 
-            var user = Application.Current.Properties["User"] as User;
+            var user = Application.Current.Properties["User"] as Models.User;
 
             var reports = reportDAO.GetReportsById(user.UserId);
 
@@ -52,6 +54,15 @@ namespace PRN212.Views
 
             // Call LoadDataGridReports with selected status, start date, and end date
             LoadDataGridReports(selectedStatus, selectedStartDate, selectedEndDate);
+        }
+
+        private void ReportDetailPage_Click(object sender, RoutedEventArgs e)
+        {
+            var report = this.ReportsDataGrid.SelectedItem as Report;
+            Application.Current.Properties["report"] = report;
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            mainWindow.MainFrame.Content = new MyReportDetailPage();
+
         }
     }
 }
