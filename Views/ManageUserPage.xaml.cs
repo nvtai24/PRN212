@@ -41,6 +41,13 @@ public partial class ManageUserPage : Page
 
     }
 
+    private void ClearFilter()
+    {
+        this.SearchTextBox.Clear();
+        this.RoleComboBox.SelectedIndex = 0;
+        this.StatusComboBox.SelectedIndex = 0;
+    }
+
 
     private void UpdateUserStatistics()
     {
@@ -90,6 +97,8 @@ public partial class ManageUserPage : Page
          u.Role = role;
 
         UserRepository.UpdateUser(u);
+
+        ClearFilter();
         LoadUsers();
     }
 
