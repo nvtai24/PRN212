@@ -18,6 +18,12 @@ public partial class User
     public string Phone { get; set; } = null!;
 
     public string? Address { get; set; }
+    
+    public bool Status { get; set; }
+    
+    public string StatusString => Status ? "Active" : "Inactive";
+
+    public string ToggleStatusBtn => Status ? "Inactive" : "Active";
 
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 

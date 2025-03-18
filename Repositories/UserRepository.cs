@@ -8,7 +8,7 @@ using PRN212.Models;
 
 namespace PRN212.Repositories
 {
-    class UserRepository
+    public class UserRepository
     {
         private Prn212Context _context;
         public UserRepository()
@@ -37,5 +37,74 @@ namespace PRN212.Repositories
         {
             return _context.Users.FirstOrDefault(u => u.Email == email);
         }
+        
+        
+        public static List<User> ListUsers()
+        {
+            using (var context = new Prn212Context())
+            {
+                return context.Users.Where(u => u.Role != "Admin").ToList();
+            }
+        }
+
+        
+        
+        public static List<User> FilterUsers(string keyword, string role, int status)
+        {
+            using (var db = new Prn212Context())
+            {
+                var query = db.Users.AsQueryable();
+
+                if (keyword != null)
+                {
+                    keyword = keyword.ToLower();
+                    query = query.Where(u => u.FullName.Contains(keyword) || u.Address.Contains(keyword) || u.Email.Contains(keyword) || u.Phone.Contains(keyword));
+                }
+
+                if (role != "All")
+                {
+                    query = query.Where(u => u.Role == role);
+                }
+
+                if (status != -1)
+                {
+                    var isActive = status == 1;
+                    query = query.Where(u => u.Status == isActive);
+                }
+
+                return query
+                    .Where(u => u.Role != "Admin")
+                    .ToList();
+            }
+        }
+
+        public static void ToggleStatus(User u)
+        {
+            using (var db = new Prn212Context())
+            {
+                u.Status = !u.Status;
+
+                db.Update(u);
+                db.SaveChanges();
+            }
+        }
+
+
+        public static void UpdateUser(User u)
+        {
+            using (var db = new Prn212Context())
+            {
+                User u2 = db.Users.Where(u2 => u2.Email == u.Email).FirstOrDefault();
+
+                u2.Address = u.Address;
+                u2.Phone = u.Phone;
+                u2.FullName = u.FullName;
+                u2.Status = u.Status;
+                u2.Role = u.Role;
+                db.Update(u2);
+                db.SaveChanges();
+            }
+        }
+        
     }
 }

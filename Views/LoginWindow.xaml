@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Traffic Violation Reporting System" Height="auto" Width="500"
         WindowStartupLocation="CenterScreen" 
-        ResizeMode="CanResize">
+        ResizeMode="NoResize">
     
     <Frame Name="HeadFrame"/>
 

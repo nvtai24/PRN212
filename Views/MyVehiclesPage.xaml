@@ -32,39 +32,49 @@
                 <!-- Filter Section -->
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <!-- Vehicle Type Filter -->
-                    <ComboBox Width="150"
-                             Height="35"
-                             Margin="0,0,10,0"
-                             VerticalContentAlignment="Center">
-                        <ComboBoxItem Content="All Types" IsSelected="True"/>
-                        <ComboBoxItem Content="Car"/>
-                        <ComboBoxItem Content="Motorcycle"/>
-                        <ComboBoxItem Content="Truck"/>
-                        <ComboBoxItem Content="Other"/>
-                    </ComboBox>
+                    <ComboBox x:Name="cmbBrand" 
+             Width="150"
+             Height="35"
+             Margin="0,0,10,0"
+             VerticalContentAlignment="Center"
+             />
+
+                    <!-- Model Filter -->
+                    <ComboBox x:Name="cmbModel" 
+             Width="150"
+             Height="35"
+             Margin="0,0,10,0"
+             VerticalContentAlignment="Center"/>
+
+                    <!-- Year Filter -->
+                    <ComboBox x:Name="cmbYear" 
+             Width="100"
+             Height="35"
+             Margin="0,0,10,0"
+             VerticalContentAlignment="Center"/>
 
                     <!-- Search Box -->
                     <TextBox Width="200"
                             Height="35"
                             Margin="0,0,10,0"
                             VerticalContentAlignment="Center"
-                            Padding="5"/>
+                            Padding="5" x:Name="txtSearch"/>
 
                     <!-- Search Button -->
                     <Button Content="Search"
                             Width="100"
                             Height="35"
                             Background="#2196F3"
-                            Foreground="White"/>
+                            Foreground="White" x:Name="btnSearch" Click="btnSearch_Click"/>
+                    <Button Content="Reset"
+        Width="50"
+        Height="35"
+        Background="#9E9E9E"
+        Foreground="White" 
+        x:Name="btnReset" 
+        Click="btnReset_Click"
+        Margin="10,0,0,0"/>
                 </StackPanel>
-
-                <!-- Add Vehicle Button -->
-                <Button Grid.Column="1"
-                        Content="Register New Vehicle"
-                        Width="150"
-                        Height="35"
-                        Background="#4CAF50"
-                        Foreground="White"/>
             </Grid>
         </StackPanel>
 
@@ -83,16 +93,16 @@
                          RowHeaderWidth="0"
                          CanUserAddRows="False"
                          CanUserDeleteRows="False"
-                         AlternatingRowBackground="#F8F9FA">
+                         AlternatingRowBackground="#F8F9FA" Name="dgVehicles">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID"
-                                          Binding="{Binding Id}"
+                                          Binding="{Binding VehicleId}"
                                           Width="70"/>
                         <DataGridTextColumn Header="Plate Number"
                                           Binding="{Binding PlateNumber}"
                                           Width="120"/>
-                        <DataGridTextColumn Header="Vehicle Type"
-                                          Binding="{Binding Type}"
+                        <DataGridTextColumn Header="Owner"
+                                          Binding="{Binding Owner.FullName}"
                                           Width="100"/>
                         <DataGridTextColumn Header="Brand"
                                           Binding="{Binding Brand}"
@@ -100,13 +110,10 @@
                         <DataGridTextColumn Header="Model"
                                           Binding="{Binding Model}"
                                           Width="120"/>
-                        <DataGridTextColumn Header="Color"
-                                          Binding="{Binding Color}"
+                        <DataGridTextColumn Header="Manufacture Year"
+                                          Binding="{Binding ManufactureYear}"
                                           Width="100"/>
-                        <DataGridTextColumn Header="Registration Date"
-                                          Binding="{Binding RegistrationDate}"
-                                          Width="150"/>
-                        <DataGridTemplateColumn Header="Actions" Width="*">
+                        <!--<DataGridTemplateColumn Header="Actions" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -130,11 +137,11 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
+                        </DataGridTemplateColumn> -->
+                    </DataGrid.Columns> 
 
                     <!-- Empty State Message -->
-                    <DataGrid.Style>
+                    <!--<DataGrid.Style>
                         <Style TargetType="DataGrid">
                             <Style.Triggers>
                                 <Trigger Property="HasItems" Value="False">
@@ -161,7 +168,7 @@
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
-                    </DataGrid.Style>
+                    </DataGrid.Style>-->
                 </DataGrid>
             </Grid>
         </Border>
