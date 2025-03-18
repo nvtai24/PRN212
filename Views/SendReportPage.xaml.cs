@@ -35,7 +35,7 @@ public partial class SendReportPage : Page
         // Lấy dữ liệu từ các điều khiển
         string location = LocationTextBox.Text;
 
-        string violationType = (ViolationTypeComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+        string violationType = ViolationTypeTextBox.Text;
 
         string licensePlate = LicensePlateComboBox.SelectedValue.ToString();
         string description = DescriptionTextBox.Text;

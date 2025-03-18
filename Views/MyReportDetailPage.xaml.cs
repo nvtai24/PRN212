@@ -25,10 +25,13 @@ namespace PRN212.Views
     /// </summary>
     public partial class MyReportDetailPage : Page
     {
+        private string selectedImagePath;
+        private string selectedVideoPath;
         public MyReportDetailPage()
         {
             InitializeComponent();
             LoadDataDetail();
+            LoadComboBox();
         }
 
         void LoadDataDetail()
@@ -40,11 +43,11 @@ namespace PRN212.Views
                 this.StatusTextBox.Text = report.Status;
                 this.LocationTextBox.Text = report.Location;
                 this.ViolationTypeTextBox.Text = report.ViolationType;
-                this.LicensePlateTextBox.Text = report.PlateNumber;
+                //this.LicensePlateComboBox.SelectedValue = report.PlateNumber;
                 this.DescriptionTextBox.Text = report.Description;
 
-                // Đường dẫn tới thư mục Assets
-                string projectFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Assets");
+                //Đường dẫn tới thư mục Assets
+                    string projectFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Assets");
 
                 // Hiển thị ảnh nếu có
                 if (!string.IsNullOrEmpty(report.ImageUrl))
@@ -84,7 +87,8 @@ namespace PRN212.Views
                         VideoDisplay.Play();
 
                         // Thiết lập để video tự động phát lại
-                        VideoDisplay.MediaEnded += (s, e) => {
+                        VideoDisplay.MediaEnded += (s, e) =>
+                        {
                             VideoDisplay.Position = TimeSpan.Zero; // Quay lại đầu video
                             VideoDisplay.Play(); // Phát lại video
                         };
@@ -104,12 +108,14 @@ namespace PRN212.Views
                 }
 
                 // Thêm code xử lý nút Play và Pause
-                PlayButton.Click += (s, e) => {
+                PlayButton.Click += (s, e) =>
+                {
                     if (VideoDisplay.Source != null)
                         VideoDisplay.Play();
                 };
 
-                PauseButton.Click += (s, e) => {
+                PauseButton.Click += (s, e) =>
+                {
                     if (VideoDisplay.Source != null)
                         VideoDisplay.Pause();
                 };
@@ -129,5 +135,171 @@ namespace PRN212.Views
             var mainWindow = Window.GetWindow(this) as MainWindow;
             mainWindow.MainFrame.Content = new MyReportPage();
         }
+
+        private void ChooseImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            var fileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp",
+                Title = "Select an Image"
+            };
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                selectedImagePath = fileDialog.FileName;
+                ImageFileNameTextBlock.Text = System.IO.Path.GetFileName(selectedImagePath);
+
+                // Hiển thị preview ảnh
+                ImageDisplay.Visibility = Visibility.Visible;
+                ImageDisplay.Source = new BitmapImage(new Uri(selectedImagePath));
+            }
+        }
+
+        private void ChooseVideoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var fileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Video Files|*.mp4;*.avi;*.mkv",
+                Title = "Select a Video"
+            };
+
+            if (fileDialog.ShowDialog() == true)
+            {
+                selectedVideoPath = fileDialog.FileName;
+                VideoFileNameTextBlock.Text = System.IO.Path.GetFileName(selectedVideoPath);
+
+                // Hiển thị preview video
+                VideoDisplay.Visibility = Visibility.Visible;
+                VideoDisplay.Source = new Uri(selectedVideoPath);
+
+                // Phát video khi đã chọn
+                VideoDisplay.Play();
+            }
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            Report report = new Report();
+            var reportSession = Application.Current.Properties["report"] as Report;
+
+            // Kiểm tra nếu có ảnh được chọn hoặc đã hiển thị ảnh
+            if (ImageDisplay.Visibility == Visibility.Visible && !string.IsNullOrEmpty(selectedImagePath))
+            {
+                string imageFileName = System.IO.Path.GetFileName(selectedImagePath);
+                string projectFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Assets");
+                string imageFolder = System.IO.Path.Combine(projectFolder, "Images");
+
+                if (!Directory.Exists(imageFolder))
+                {
+                    Directory.CreateDirectory(imageFolder);
+                }
+
+                string newImagePath = System.IO.Path.Combine(imageFolder, imageFileName);
+
+                if (reportSession.ImageUrl == null || !reportSession.ImageUrl.Equals(newImagePath, StringComparison.OrdinalIgnoreCase))
+                {
+                    try
+                    {
+                        // Giải phóng tệp ảnh khỏi WPF Image control
+                        ImageDisplay.Source = null;
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+
+                        // Kiểm tra và xóa file nếu đã tồn tại
+                        if (File.Exists(newImagePath))
+                        {
+                            File.SetAttributes(newImagePath, FileAttributes.Normal);
+                            File.Delete(newImagePath);
+                        }
+
+                        File.Copy(selectedImagePath, newImagePath, true);
+                        report.ImageUrl = System.IO.Path.Combine("Images", imageFileName);
+
+                        // Load lại ảnh vào ImageDisplay
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.UriSource = new Uri(newImagePath, UriKind.Absolute);
+                        bitmap.EndInit();
+                        ImageDisplay.Source = bitmap;
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show("Lỗi khi cập nhật ảnh: " + ex.Message);
+                    }
+                }
+            }
+
+
+            else
+            {
+                report.ImageUrl = null;
+            }
+
+            // Kiểm tra nếu có video được chọn hoặc đã hiển thị video
+            if (VideoDisplay.Visibility == Visibility.Visible && !string.IsNullOrEmpty(selectedVideoPath))
+            {
+                string videoFileName = System.IO.Path.GetFileName(selectedVideoPath);
+                string projectFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Assets");
+                string videoFolder = System.IO.Path.Combine(projectFolder, "Videos");
+
+                if (!Directory.Exists(videoFolder))
+                {
+                    Directory.CreateDirectory(videoFolder);
+                }
+
+                string newVideoPath = System.IO.Path.Combine(videoFolder, videoFileName);
+                File.Copy(selectedVideoPath, newVideoPath, true);
+
+                // Gán đường dẫn video vào đối tượng report
+                report.VideoUrl = System.IO.Path.Combine("Videos", videoFileName);
+            }
+            else
+            {
+                report.VideoUrl = null;
+            }
+
+            if (report.ImageUrl == null)
+            {
+                report.ImageUrl = reportSession.ImageUrl;
+            }
+
+            if (report.VideoUrl == null)
+            {
+                report.VideoUrl = reportSession.VideoUrl;
+            }
+
+
+            MessageBox.Show(report.VideoUrl + "\n" + report.ImageUrl);
+
+            // Bạn có thể lưu report vào database hoặc xử lý thêm ở đây
+        }
+
+        void LoadComboBox()
+        {
+            ReportDAO dao = new ReportDAO();
+            var report = Application.Current.Properties["report"] as Report;
+
+            // Load danh sách biển số vào ComboBox
+            this.LicensePlateComboBox.ItemsSource = dao.GetPlates();
+            this.LicensePlateComboBox.DisplayMemberPath = "PlateNumber";
+            this.LicensePlateComboBox.SelectedValuePath = "PlateNumber";
+
+            // Đảm bảo ComboBox có ít nhất một giá trị để chọn
+            if (this.LicensePlateComboBox.ItemsSource != null)
+            {
+                // Thiết lập giá trị mặc định của ComboBox
+                this.LicensePlateComboBox.SelectedValue = report.PlateNumber;
+
+                // Nếu không tìm thấy giá trị PlateNumber trong ItemsSource, bạn có thể đặt SelectedIndex = 0
+                // Nhưng ở đây ta sẽ chọn dựa trên PlateNumber
+                if (this.LicensePlateComboBox.SelectedValue == null)
+                {
+                    this.LicensePlateComboBox.SelectedIndex = 0;
+                }
+            }
+        }
+
+
     }
 }
