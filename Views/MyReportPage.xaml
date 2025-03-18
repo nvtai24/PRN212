@@ -29,6 +29,8 @@
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
@@ -47,8 +49,17 @@
                     </StackPanel>
                 </StackPanel>
 
-                <!-- Status Filter -->
+                <!-- Search Box -->
                 <StackPanel Grid.Column="2" Orientation="Vertical">
+                    <!-- Search Text -->
+                    <TextBlock Text="Search by violation type" Margin="0,0,0,5"/>
+
+                    <!-- Search Box -->
+                    <TextBox x:Name="SearchBox" Height="35" VerticalContentAlignment="Center" TextChanged="SearchBox_TextChanged"/>
+                </StackPanel>
+
+                <!-- Status Filter -->
+                <StackPanel Grid.Column="4" Orientation="Vertical">
                     <TextBlock Text="Status" Margin="0,0,0,5"/>
                     <ComboBox x:Name="StatusComboBox" Height="35" VerticalContentAlignment="Center">
                         <ComboBoxItem Content="All Status" IsSelected="True"/>
@@ -59,7 +70,7 @@
                 </StackPanel>
 
                 <!-- Apply Filter Button -->
-                <Button Grid.Column="4"
+                <Button Grid.Column="6"
             Content="Apply Filters"
             Height="35"
             Width="100"
@@ -100,13 +111,63 @@
                                           Width="170"/>
                         <DataGridTextColumn Header="Violation Type" 
                                           Binding="{Binding ViolationType}" 
-                                          Width="250"/>
+                                          Width="240"/>
                         <DataGridTextColumn Header="Location" 
                                           Binding="{Binding Location}" 
-                                          Width="300"/>
-                        <DataGridTextColumn Header="Status" 
-                                          Binding="{Binding Status}" 
-                                          Width="130"/>
+                                          Width="290"/>
+                        <DataGridTemplateColumn Header="Status" Width="130">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="4"
+                    Padding="8,3"
+                    MinWidth="130"
+                    MaxWidth="130"
+                    HorizontalAlignment="Left">
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Approved">
+                                                        <Setter Property="Background" Value="#E8F5E9" />
+                                                        <!-- Màu xanh khi Approved -->
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Pending">
+                                                        <Setter Property="Background" Value="#FFF9C4" />
+                                                        <!-- Màu vàng khi Pending -->
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                        <Setter Property="Background" Value="#FFEBEE" />
+                                                        <!-- Màu đỏ khi Rejected -->
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                        <TextBlock Text="{Binding Status}"
+                           TextAlignment="Center"
+                           VerticalAlignment="Center">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Approved">
+                                                            <Setter Property="Foreground" Value="#388E3C" />
+                                                            <!-- Màu chữ xanh khi Approved -->
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Pending">
+                                                            <Setter Property="Foreground" Value="#000000" />
+                                                            <!-- Màu chữ đen khi Pending để dễ nhìn -->
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                            <Setter Property="Foreground" Value="#D32F2F" />
+                                                            <!-- Màu chữ đỏ khi Rejected -->
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
                         <DataGridTextColumn Header="Processed By" 
                                           Binding="{Binding ProcessedByNavigation.FullName}" 
                                           Width="150"/>
