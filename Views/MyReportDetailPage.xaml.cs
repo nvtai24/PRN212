@@ -32,6 +32,17 @@ namespace PRN212.Views
             InitializeComponent();
             LoadDataDetail();
             LoadComboBox();
+
+            var report = Application.Current.Properties["report"] as Report;
+
+            if(report != null)
+            {
+                if (!report.Status.Equals("Pending"))
+                {
+                    this.UpdateBtn.Visibility = Visibility.Collapsed;
+                    this.CancelBtn.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         void LoadDataDetail()
@@ -40,6 +51,10 @@ namespace PRN212.Views
             if (report != null)
             {
                 this.ReportIdTextBox.Text = report.ReportId.ToString();
+                if(report.ProcessedByNavigation != null)
+                {
+                    this.ProcessByTextBox.Text = report.ProcessedByNavigation.FullName;
+                }
                 this.StatusTextBox.Text = report.Status;
                 this.LocationTextBox.Text = report.Location;
                 this.ViolationTypeTextBox.Text = report.ViolationType;
@@ -47,7 +62,7 @@ namespace PRN212.Views
                 this.DescriptionTextBox.Text = report.Description;
 
                 //Đường dẫn tới thư mục Assets
-                    string projectFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Assets");
+                string projectFolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Assets");
 
                 // Hiển thị ảnh nếu có
                 if (!string.IsNullOrEmpty(report.ImageUrl))
@@ -120,20 +135,6 @@ namespace PRN212.Views
                         VideoDisplay.Pause();
                 };
             }
-        }
-
-
-
-        private void MyReportDetailPage_Unloaded(object sender, RoutedEventArgs e)
-        {
-            // Xóa giá trị trong Application.Current.Properties khi rời khỏi trang
-            Application.Current.Properties.Remove("report");
-        }
-
-        private void BackToReportList_Click(object sender, RoutedEventArgs e)
-        {
-            var mainWindow = Window.GetWindow(this) as MainWindow;
-            mainWindow.MainFrame.Content = new MyReportPage();
         }
 
         private void ChooseImageButton_Click(object sender, RoutedEventArgs e)
@@ -276,12 +277,30 @@ namespace PRN212.Views
             report.ViolationType = this.ViolationTypeTextBox.Text;
             report.Description = this.DescriptionTextBox.Text;
 
+            if (string.IsNullOrEmpty(report.Location))
+            {
+                MessageBox.Show("Please enter location.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(report.ViolationType))
+            {
+                MessageBox.Show("Please enter violation type.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(report.Description))
+            {
+                MessageBox.Show("Please enter description.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             ReportDAO reportDao = new ReportDAO();
             reportDao.UpdateReport(report);
 
             MessageBox.Show("Update successfully!");
             //MessageBox.Show(report.VideoUrl + "\n" + report.ImageUrl +"\n" + report.ReporterId + "\n" + report.ReportId
-             //   +"\n" + report.Location +"\n" + report.PlateNumber +"\n" + report.ViolationType +"\n" + report.Description);
+            //   +"\n" + report.Location +"\n" + report.PlateNumber +"\n" + report.ViolationType +"\n" + report.Description);
         }
 
         void LoadComboBox()
@@ -307,6 +326,18 @@ namespace PRN212.Views
                     this.LicensePlateComboBox.SelectedIndex = 0;
                 }
             }
+        }
+
+        private void MyReportDetailPage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // Xóa giá trị trong Application.Current.Properties khi rời khỏi trang
+            Application.Current.Properties.Remove("report");
+        }
+
+        private void BackToReportList_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            mainWindow.MainFrame.Content = new MyReportPage();
         }
     }
 }

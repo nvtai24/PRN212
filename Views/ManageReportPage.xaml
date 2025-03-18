@@ -17,10 +17,10 @@
         <!-- Header and Filters -->
         <StackPanel Grid.Row="0" Margin="40,40,40,20">
             <!-- Header -->
-            <TextBlock Text="Manage Traffic Violation Reports" 
-                      FontSize="28" 
-                      FontWeight="SemiBold"
-                      Margin="0,0,0,30"/>
+            <TextBlock Text="My Submitted Reports" 
+                  FontSize="28" 
+                  FontWeight="SemiBold"
+                  Margin="0,0,0,30"/>
 
             <!-- Filters -->
             <Grid Margin="0,0,0,20">
@@ -29,164 +29,131 @@
                     <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="20"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Date Range Filter -->
-                <StackPanel Grid.Column="0">
-                    <TextBlock Text="Date Range" 
-                             Margin="0,0,0,5"/>
-                    <ComboBox x:Name="DateRangeComboBox"
-                            Height="35">
-                        <ComboBoxItem>All Time</ComboBoxItem>
-                        <ComboBoxItem>Today</ComboBoxItem>
-                        <ComboBoxItem>Last 7 Days</ComboBoxItem>
-                        <ComboBoxItem>Last 30 Days</ComboBoxItem>
-                        <ComboBoxItem>Custom Range</ComboBoxItem>
-                    </ComboBox>
-                </StackPanel>
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <!-- Date Range Text -->
+                    <TextBlock Text="Date Range" Margin="0,0,0,5"/>
 
-                <!-- Priority Filter -->
-                <StackPanel Grid.Column="2">
-                    <TextBlock Text="Priority" 
-                             Margin="0,0,0,5"/>
-                    <ComboBox x:Name="PriorityComboBox"
-                            Height="35">
-                        <ComboBoxItem>All Priority</ComboBoxItem>
-                        <ComboBoxItem>High</ComboBoxItem>
-                        <ComboBoxItem>Medium</ComboBoxItem>
-                        <ComboBoxItem>Low</ComboBoxItem>
-                    </ComboBox>
+                    <!-- Date Pickers Row -->
+                    <StackPanel Orientation="Horizontal">
+                        <!-- Start Date Picker -->
+                        <DatePicker x:Name="StartDatePicker" Height="35" Margin="0,0,10,0"/>
+
+                        <!-- End Date Picker -->
+                        <DatePicker x:Name="EndDatePicker" Height="35"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <!-- Status Filter -->
-                <StackPanel Grid.Column="4">
-                    <TextBlock Text="Status" 
-                             Margin="0,0,0,5"/>
-                    <ComboBox x:Name="StatusComboBox"
-                            Height="35">
-                        <ComboBoxItem>All Status</ComboBoxItem>
-                        <ComboBoxItem>New</ComboBoxItem>
-                        <ComboBoxItem>Under Review</ComboBoxItem>
-                        <ComboBoxItem>In Progress</ComboBoxItem>
-                        <ComboBoxItem>Resolved</ComboBoxItem>
-                        <ComboBoxItem>Rejected</ComboBoxItem>
+                <StackPanel Grid.Column="2" Orientation="Vertical">
+                    <TextBlock Text="Status" Margin="0,0,0,5"/>
+                    <ComboBox x:Name="StatusComboBox" Height="35" VerticalContentAlignment="Center">
+                        <ComboBoxItem Content="All Status" IsSelected="True"/>
+                        <ComboBoxItem Content="Pending"/>
+                        <ComboBoxItem Content="Approved"/>
+                        <ComboBoxItem Content="Rejected"/>
                     </ComboBox>
                 </StackPanel>
 
                 <!-- Apply Filter Button -->
-                <Button Grid.Column="6"
-                        Content="Apply Filters"
-                        Height="35"
-                        Width="100"
-                        VerticalAlignment="Bottom"
-                        Background="#2196F3"
-                        Foreground="White"/>
+                <Button Grid.Column="4"
+        Content="Apply Filters"
+        Height="35"
+        Width="100"
+        VerticalAlignment="Bottom"
+        Background="#2196F3"
+        Foreground="White" Click="ApplyFiltersButton_Click"/>
             </Grid>
+
         </StackPanel>
 
         <!-- Reports DataGrid -->
-        <DataGrid Grid.Row="1" 
-                  x:Name="ReportsDataGrid"
-                  Margin="40,20,40,40"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  CanUserAddRows="False"
-                  CanUserDeleteRows="False"
-                  CanUserReorderColumns="False"
-                  CanUserResizeRows="False"
-                  CanUserSortColumns="True"
-                  AlternatingRowBackground="#F5F5F5"
-                  RowHeaderWidth="0"
-                  BorderBrush="#E0E0E0"
-                  BorderThickness="1">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" 
-                                  Binding="{Binding ReportId}" 
-                                  Width="80"/>
-                <DataGridTextColumn Header="Date" 
-                                  Binding="{Binding SubmitDate}" 
-                                  Width="100"/>
-                <DataGridTextColumn Header="Reporter" 
-                                  Binding="{Binding ReporterName}" 
-                                  Width="120"/>
-                <DataGridTextColumn Header="Violation Type" 
-                                  Binding="{Binding ViolationType}" 
-                                  Width="150"/>
-                <DataGridTextColumn Header="Location" 
-                                  Binding="{Binding Location}" 
-                                  Width="200"/>
-                <DataGridTextColumn Header="Priority" 
-                                  Binding="{Binding Priority}" 
-                                  Width="80"/>
-                <DataGridTextColumn Header="Status" 
-                                  Binding="{Binding Status}" 
-                                  Width="120"/>
-                <DataGridTemplateColumn Header="Actions" Width="*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Content="View"
-                                        Height="30"
-                                        Width="70"
-                                        Margin="0,0,5,0"
-                                        Background="#2196F3"
-                                        Foreground="White"/>
-                                <Button Content="Process"
-                                        Height="30"
-                                        Width="70"
-                                        Margin="0,0,5,0"
-                                        Background="#4CAF50"
-                                        Foreground="White"/>
-                                <Button Content="Reject"
-                                        Height="30"
-                                        Width="70"
-                                        Background="#F44336"
-                                        Foreground="White"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <!-- Bottom Panel -->
         <Border Grid.Row="1" 
-                Background="White"
-                BorderBrush="#E0E0E0"
-                BorderThickness="1"
-                VerticalAlignment="Bottom"
-                Margin="40,0,40,40">
-            <Grid Margin="20">
-                <StackPanel Orientation="Horizontal" 
-                          HorizontalAlignment="Left">
-                    <TextBlock Text="Total Reports: " 
-                             FontWeight="SemiBold"/>
-                    <TextBlock Text="0" 
-                             Margin="5,0,20,0"/>
-                    <TextBlock Text="Pending: " 
-                             FontWeight="SemiBold"/>
-                    <TextBlock Text="0" 
-                             Margin="5,0,20,0"/>
-                    <TextBlock Text="Today's New: " 
-                             FontWeight="SemiBold"/>
-                    <TextBlock Text="0" 
-                             Margin="5,0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" 
-                          HorizontalAlignment="Right">
-                    <Button Content="Export Data"
-                            Height="35"
-                            Width="120"
-                            Margin="0,0,10,0"/>
-                    <Button Content="Batch Process"
-                            Height="35"
-                            Width="120"
-                            Background="#2196F3"
-                            Foreground="White"/>
-                </StackPanel>
+            BorderThickness="0,1,0,0" 
+            BorderBrush="#E0E0E0">
+            <Grid Margin="40,20,40,40">
+                <DataGrid x:Name="ReportsDataGrid"
+                     AutoGenerateColumns="False"
+                     IsReadOnly="True"
+                     GridLinesVisibility="Horizontal"
+                     BorderThickness="1"
+                     BorderBrush="#E0E0E0"
+                     VerticalAlignment="Stretch"
+                     HorizontalAlignment="Stretch"
+                     RowHeaderWidth="0"
+                     Background="White"
+                     RowBackground="White"
+                     AlternatingRowBackground="#F8F8F8"
+                     CanUserResizeRows="False"
+                     VerticalGridLinesBrush="Transparent"
+                     HorizontalGridLinesBrush="#E0E0E0">
+                    <DataGrid.Columns>
+                        <!-- Cột "Reporter" rộng hơn -->
+                        <DataGridTextColumn Header="Reporter" 
+                  Binding="{Binding Reporter.FullName}" 
+                  Width="2*"/>
+                        <!-- Tăng gấp đôi so với các cột còn lại -->
+
+                        <DataGridTextColumn Header="Date Submitted" 
+                  Binding="{Binding ReportDate}" 
+                  Width="150"/>
+                        <DataGridTextColumn Header="Violation Type" 
+                  Binding="{Binding ViolationType}" 
+                  Width="200"/>
+                        <DataGridTextColumn Header="Location" 
+                  Binding="{Binding Location}" 
+                  Width="250"/>
+                        <DataGridTextColumn Header="Status" 
+                  Binding="{Binding Status}" 
+                  Width="120"/>
+                        <DataGridTextColumn Header="Processed By" 
+                  Binding="{Binding ProcessedByNavigation.FullName}" 
+                  Width="120"/>
+
+                        <!-- Cột cuối chứa Button, Width đặt là Auto để nó tự động điều chỉnh -->
+                        <DataGridTemplateColumn Header="" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="View Details"
+                        Height="30"
+                        Width="100"
+                        Margin="0,0,10,0"
+                        Background="#2196F3"
+                        Foreground="White"
+                        Click="ReportDetailManagerPage_Click"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+
+                    <!-- Empty State Template -->
+                    <!-- <DataGrid.NoDataContent> -->
+                    <!--     <StackPanel VerticalAlignment="Center"  -->
+                    <!--               HorizontalAlignment="Center"  -->
+                    <!--               Margin="0,50"> -->
+                    <!--         <TextBlock Text="No Reports Found" -->
+                    <!--                  FontSize="18" -->
+                    <!--                  FontWeight="SemiBold" -->
+                    <!--                  HorizontalAlignment="Center"/> -->
+                    <!--         <TextBlock Text="You haven't submitted any reports yet." -->
+                    <!--                  Foreground="Gray" -->
+                    <!--                  Margin="0,10" -->
+                    <!--                  HorizontalAlignment="Center"/> -->
+                    <!--         <Button Content="Submit New Report" -->
+                    <!--                 Height="35" -->
+                    <!--                 Width="150" -->
+                    <!--                 Margin="0,20,0,0" -->
+                    <!--                 Background="#2196F3" -->
+                    <!--                 Foreground="White"/> -->
+                    <!--     </StackPanel> -->
+                    <!-- </DataGrid.NoDataContent> -->
+                </DataGrid>
             </Grid>
         </Border>
     </Grid>

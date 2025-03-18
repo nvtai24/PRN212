@@ -17,7 +17,7 @@ public partial class SendReportPage : Page
     public SendReportPage()
     {
         InitializeComponent();
-        LoadComboBoxLicensePlate();
+        LoadComboBoxLicensePlate();       
     }
 
     void LoadComboBoxLicensePlate()
@@ -34,9 +34,7 @@ public partial class SendReportPage : Page
     {
         // Lấy dữ liệu từ các điều khiển
         string location = LocationTextBox.Text;
-
         string violationType = ViolationTypeTextBox.Text;
-
         string licensePlate = LicensePlateComboBox.SelectedValue.ToString();
         string description = DescriptionTextBox.Text;
 
@@ -54,7 +52,7 @@ public partial class SendReportPage : Page
 
         if (string.IsNullOrEmpty(licensePlate))
         {
-            MessageBox.Show("Please enter licensePlate.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Please enter license plate.", "Notification", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -123,13 +121,23 @@ public partial class SendReportPage : Page
             report.VideoUrl = null;
         }
 
-        // Hiển thị thông báo
-        ReportDAO reportDao = new ReportDAO();
-        reportDao.SendReport(report);
-        MessageBox.Show($"Report submitted successfully!\nLocation: {location}\nViolation Type: {violationType}\nLicense Plate: {licensePlate}\nDescription: {description}\nImage URL: {report.ImageUrl}\nVideo URL: {report.VideoUrl}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        // Hiển thị thông báo xác nhận
+        var result = MessageBox.Show("Are you sure you want to send this report?", "Confirm Report Submission", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            // Nếu người dùng chọn Yes, gửi báo cáo
+            ReportDAO reportDao = new ReportDAO();
+            reportDao.SendReport(report);
+
+            MessageBox.Show($"Report submitted successfully!");
+        }
+        else
+        {
+            // Nếu người dùng chọn No, hủy bỏ hành động
+            MessageBox.Show("Report submission canceled.", "Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
-
-
 
     private void ChooseImageButton_Click(object sender, RoutedEventArgs e)
     {

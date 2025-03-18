@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PRN212.Models;
 
 namespace PRN212.Repositories
@@ -13,6 +14,7 @@ namespace PRN212.Repositories
         {
             Prn212Context context = new Prn212Context();
             var reports = context.Reports
+                .Include(r => r.ProcessedByNavigation)
                 .Where(r => r.ReporterId == UserId).ToList();
             return reports;
         }
