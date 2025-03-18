@@ -20,4 +20,7 @@ public partial class Notification
     public virtual Vehicle? PlateNumberNavigation { get; set; }
 
     public virtual User User { get; set; } = null!;
+
+    public string SendDateString => SentDate?.ToString("dd/MM/yyyy HH:mm");
+
 }
