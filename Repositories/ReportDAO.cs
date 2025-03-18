@@ -30,5 +30,26 @@ namespace PRN212.Repositories
             var vehicles = context.Vehicles.ToList();
             return vehicles;
         }
+
+        public void UpdateReport(Report report)
+        {
+            Prn212Context context = new Prn212Context();
+            var r = context.Reports
+                .Where(rp => rp.ReportId == report.ReportId)
+                .FirstOrDefault();
+            if (r != null)
+            {
+                r.Location = report.Location;
+                r.ViolationType = report.ViolationType;
+                r.PlateNumber = report.PlateNumber;
+                r.Description = report.Description;
+                r.ImageUrl = report.ImageUrl;
+                r.VideoUrl = report.VideoUrl;
+
+                context.Reports.Update(r);
+                context.SaveChanges();
+            }
+
+        }
     }
 }

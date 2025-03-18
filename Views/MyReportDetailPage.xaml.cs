@@ -269,10 +269,19 @@ namespace PRN212.Views
                 report.VideoUrl = reportSession.VideoUrl;
             }
 
+            report.ReportId = reportSession.ReportId;
+            report.ReporterId = reportSession.ReporterId;
+            report.Location = this.LocationTextBox.Text;
+            report.PlateNumber = this.LicensePlateComboBox.SelectedValue.ToString();
+            report.ViolationType = this.ViolationTypeTextBox.Text;
+            report.Description = this.DescriptionTextBox.Text;
 
-            MessageBox.Show(report.VideoUrl + "\n" + report.ImageUrl);
+            ReportDAO reportDao = new ReportDAO();
+            reportDao.UpdateReport(report);
 
-            // Bạn có thể lưu report vào database hoặc xử lý thêm ở đây
+            MessageBox.Show("Update successfully!");
+            //MessageBox.Show(report.VideoUrl + "\n" + report.ImageUrl +"\n" + report.ReporterId + "\n" + report.ReportId
+             //   +"\n" + report.Location +"\n" + report.PlateNumber +"\n" + report.ViolationType +"\n" + report.Description);
         }
 
         void LoadComboBox()
@@ -299,7 +308,5 @@ namespace PRN212.Views
                 }
             }
         }
-
-
     }
 }
