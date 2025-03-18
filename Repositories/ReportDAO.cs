@@ -26,10 +26,12 @@ namespace PRN212.Repositories
             context.SaveChanges();
         }
 
-        public List<Vehicle> GetPlates()
+        public List<Vehicle> GetPlates(int myId)
         {
             Prn212Context context = new Prn212Context();
-            var vehicles = context.Vehicles.ToList();
+            var vehicles = context.Vehicles
+                .Where(v => v.OwnerId != myId)
+                .ToList();
             return vehicles;
         }
 

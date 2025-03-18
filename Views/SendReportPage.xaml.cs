@@ -22,8 +22,9 @@ public partial class SendReportPage : Page
 
     void LoadComboBoxLicensePlate()
     {
+        var user = Application.Current.Properties["User"] as Models.User;
         ReportDAO reportDAO = new ReportDAO();
-        var vehicles = reportDAO.GetPlates();
+        var vehicles = reportDAO.GetPlates(user.UserId);
         this.LicensePlateComboBox.ItemsSource = vehicles;
         this.LicensePlateComboBox.DisplayMemberPath = "PlateNumber";
         this.LicensePlateComboBox.SelectedValuePath = "PlateNumber";
