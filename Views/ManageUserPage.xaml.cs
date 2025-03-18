@@ -79,19 +79,17 @@ public partial class ManageUserPage : Page
         var phone = this.EditPhoneTb.Text;
         var email = this.EditMailTb.Text;
         var address = this.EditAddressTb.Text;
-        var role = this.RoleComboBox.Text;
-        var status = this.StatusComboBox.Text == "Active";
+        var role = this.EditRoleCb.Text;
 
         User u = new User();
         u.Address = address;
         u.Email = email;
         u.Phone = phone;
         u.FullName = name;
-        u.Role = role;
-        u.Status = status;
+        
+         u.Role = role;
 
         UserRepository.UpdateUser(u);
-
         LoadUsers();
     }
 
@@ -108,7 +106,6 @@ public partial class ManageUserPage : Page
         this.EditPhoneTb.Text = user.Phone;
         this.EditMailTb.Text = user.Email;
         this.EditAddressTb.Text = user.Address;
-        // this.EditStatusCb.Text = user.StatusString;
         this.EditRoleCb.Text = user.Role;
     }
 }
