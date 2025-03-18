@@ -39,8 +39,6 @@ public partial class NotificationPage : Page
         var checkBox = sender as CheckBox;
         var notification = checkBox?.DataContext as Notification;
 
-        MessageBox.Show("cc " + notification.NotificationId + " " + notification.IsRead);
-
         if (notification != null)
         {
             NotificationRepository.ToggleIsRead(notification.NotificationId);
@@ -56,5 +54,13 @@ public partial class NotificationPage : Page
             NotificationRepository.MarkReadAll(user.UserId);
             LoadNotifications();
         }
+    }
+
+    private void ReadMoreBtn_OnClick(object sender, RoutedEventArgs e)
+    {
+        // Notification notification = (Notification)((Button)sender).DataContext;
+        //
+        // TestWindow testWindow = new TestWindow(notification.NotificationId);
+        // testWindow.Show();
     }
 }

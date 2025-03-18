@@ -35,9 +35,9 @@
                     CornerRadius="125"
                     Background="#EFF6FF"
                     Margin="0,0,0,40">
-                <Image Source="../Assets/Images/traffic1.jpg" 
-                       Width="200" 
-                       Height="200"/>
+                <Image Source="../Assets/Images/logo.jpg" 
+                       Width="auto" 
+                       Height="auto"/>
             </Border>
             
             <!-- Welcome Message -->
