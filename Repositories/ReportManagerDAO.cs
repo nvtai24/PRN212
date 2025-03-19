@@ -52,5 +52,15 @@ namespace PRN212.Repositories
                 context.SaveChanges();
             }
         }
+
+        public Boolean CheckPlate(string plate)
+        {
+            using (Prn212Context context = new Prn212Context())
+            {
+                var exists = context.Vehicles.Any(v => v.PlateNumber == plate);
+
+                return !exists;
+            }
+        }
     }
 }

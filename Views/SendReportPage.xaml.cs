@@ -17,26 +17,27 @@ public partial class SendReportPage : Page
     public SendReportPage()
     {
         InitializeComponent();
-        LoadComboBoxLicensePlate();       
+        //LoadComboBoxLicensePlate();       
     }
 
-    void LoadComboBoxLicensePlate()
-    {
-        var user = Application.Current.Properties["User"] as Models.User;
-        ReportDAO reportDAO = new ReportDAO();
-        var vehicles = reportDAO.GetPlates(user.UserId);
-        this.LicensePlateComboBox.ItemsSource = vehicles;
-        this.LicensePlateComboBox.DisplayMemberPath = "PlateNumber";
-        this.LicensePlateComboBox.SelectedValuePath = "PlateNumber";
-        this.LicensePlateComboBox.SelectedIndex = 0;
-    }
+    //void LoadComboBoxLicensePlate()
+    //{
+    //    var user = Application.Current.Properties["User"] as Models.User;
+    //    ReportDAO reportDAO = new ReportDAO();
+    //    var vehicles = reportDAO.GetPlates(user.UserId);
+    //    this.LicensePlateComboBox.ItemsSource = vehicles;
+    //    this.LicensePlateComboBox.DisplayMemberPath = "PlateNumber";
+    //    this.LicensePlateComboBox.SelectedValuePath = "PlateNumber";
+    //    this.LicensePlateComboBox.SelectedIndex = 0;
+    //}
 
     private void Button_Click(object sender, RoutedEventArgs e)
     {
         // Lấy dữ liệu từ các điều khiển
         string location = LocationTextBox.Text;
         string violationType = ViolationTypeTextBox.Text;
-        string licensePlate = LicensePlateComboBox.SelectedValue.ToString();
+        //string licensePlate = LicensePlateComboBox.SelectedValue.ToString();
+        string licensePlate = LicensePlateTextBox.Text;
         string description = DescriptionTextBox.Text;
 
         if (string.IsNullOrEmpty(location))

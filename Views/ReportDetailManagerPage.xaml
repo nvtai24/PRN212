@@ -96,15 +96,19 @@
                             IsReadOnly="True"/>
 
                         <!-- License Plate -->
-                        <TextBlock Text="License Plate" 
-                         FontWeight="SemiBold" 
-                         Margin="0,0,0,2"/>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock x:Name="LicensePlateLabel" Text="License Plate" FontWeight="SemiBold" Margin="0,0,30,2"/>
+                            <TextBlock x:Name="InvalidPlateTextBlock" Text="Plate number is invalid" FontWeight="SemiBold" Margin="0,0,0,2" Visibility="Collapsed" Foreground="Red"/>
+                        </StackPanel>
+
                         <TextBox x:Name="LicensePlateTextBox"
-                            Height="26"
-                            Margin="0,0,0,8"
-                            VerticalContentAlignment="Center"
-                            Padding="5,0"
-                            IsReadOnly="True"/>
+         Height="26"
+         Margin="0,0,0,8"
+         VerticalContentAlignment="Center"
+         Padding="5,0"
+         IsReadOnly="True"
+         BorderBrush="Black"
+         BorderThickness="1"/>
 
 
                         <!-- Description -->

@@ -39,6 +39,28 @@ namespace PRN212.Views
             {
                 this.PenaltyBtn.Visibility = Visibility.Collapsed;
             }
+
+            ReportManagerDAO reportDao = new ReportManagerDAO();
+            string plateCheck = this.LicensePlateTextBox.Text;
+
+            if (reportDao.CheckPlate(plateCheck))
+            {
+                this.ApproveBtn.Visibility = Visibility.Collapsed;
+
+                // Hiển thị TextBlock "Plate number is invalid"
+                this.InvalidPlateTextBlock.Visibility = Visibility.Visible;
+
+                // Thay đổi màu khung của TextBox thành màu đỏ
+                this.LicensePlateTextBox.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                // Ẩn TextBlock khi Plate hợp lệ
+                this.InvalidPlateTextBlock.Visibility = Visibility.Collapsed;
+
+                // Khôi phục lại màu khung của TextBox
+                this.LicensePlateTextBox.BorderBrush = new SolidColorBrush(Colors.Black);
+            }
         }
 
         void LoadDataDetail()
@@ -148,13 +170,13 @@ namespace PRN212.Views
 
         private void ApproveButton_Click(object sender, RoutedEventArgs e)
         {
+             ReportManagerDAO reportDao = new ReportManagerDAO();
             // Hiển thị hộp thoại xác nhận
             var result = MessageBox.Show("Are you sure you want to approve this report?", "Confirm Approval", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
                 // Tiến hành approve nếu người dùng chọn Yes
-                ReportManagerDAO reportDao = new ReportManagerDAO();
                 var report = Application.Current.Properties["reportManager"] as Report;
                 var user = Application.Current.Properties["User"] as User;
 
