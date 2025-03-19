@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using PRN212.Models;
 
 namespace PRN212.Views;
 
@@ -7,9 +8,30 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        
         this.MainFrame.Content = new HomePage();
-    }
+        User currentUser = (User)Application.Current.Properties["User"];
+        if(currentUser.Role != "TrafficPolice")
+        {
+            this.btnManageReports.Visibility = Visibility.Collapsed;
+            this.btnManageUsers.Visibility = Visibility.Collapsed;
+        }
+        if (currentUser.Role != "Citizen")
+        {
+            this.btnMyReports.Visibility = Visibility.Collapsed;
+            this.btnMyVehicles.Visibility = Visibility.Collapsed;
+            this.btnNotifications.Visibility = Visibility.Collapsed;
+            this.btnSendReport.Visibility = Visibility.Collapsed;
+        }
+        if (currentUser.Role != "Admin")
+        {
+            this.btnManageUsers.Visibility = Visibility.Collapsed;
+            
+        }
 
+    }
+    
+    
     private void BtnNotifications_OnClick(object sender, RoutedEventArgs e)
     {
         this.MainFrame.Content = new NotificationPage();
