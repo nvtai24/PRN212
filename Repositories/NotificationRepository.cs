@@ -18,7 +18,7 @@ namespace PRN212.Repositories
                 return db.Notifications
                     .Include(n => n.User)
                     .Include(n => n.PlateNumberNavigation)
-                    .Where(n => n.UserId == uid)
+                                                                    .Where(n => n.UserId == uid)
                     .ToList();
             }
         }

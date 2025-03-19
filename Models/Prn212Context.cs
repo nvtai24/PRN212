@@ -94,13 +94,7 @@ public partial class Prn212Context : DbContext
             entity.Property(e => e.ViolationType)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-
-            entity.HasOne(d => d.PlateNumberNavigation).WithMany(p => p.Reports)
-                .HasPrincipalKey(p => p.PlateNumber)
-                .HasForeignKey(d => d.PlateNumber)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Reports__PlateNu__48CFD27E");
-
+            
             entity.HasOne(d => d.ProcessedByNavigation).WithMany(p => p.ReportProcessedByNavigations)
                 .HasForeignKey(d => d.ProcessedBy)
                 .HasConstraintName("FK__Reports__Process__49C3F6B7");

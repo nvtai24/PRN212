@@ -58,9 +58,9 @@ public partial class NotificationPage : Page
 
     private void ReadMoreBtn_OnClick(object sender, RoutedEventArgs e)
     {
-        // Notification notification = (Notification)((Button)sender).DataContext;
-        //
-        // TestWindow testWindow = new TestWindow(notification.NotificationId);
-        // testWindow.Show();
+        Notification notification = (Notification)((Button)sender).DataContext;
+        
+        TestWindow testWindow = new TestWindow(notification.NotificationId);
+        testWindow.Show();
     }
 }
