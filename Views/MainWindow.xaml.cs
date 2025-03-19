@@ -49,4 +49,24 @@ public partial class MainWindow : Window
     {
         this.MainFrame.Content = new HomePage();
     }
+    private void BtnLogout_OnClick(object sender, RoutedEventArgs e)
+    {
+        MessageBoxResult result = MessageBox.Show("Are you sure you want to logout?",
+                                                "Logout Confirmation",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Question);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            if (Application.Current.Properties.Contains("User"))
+            {
+                Application.Current.Properties.Remove("User");
+            }
+
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+
+            this.Close();
+        }
+    }
 }

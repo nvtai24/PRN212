@@ -112,6 +112,9 @@
                             x:Name="btnManageUsers" Click="BtnManageUsers_OnClick"/>
                     <Button Content="📈 Manage Reports" Style="{StaticResource NavigationButtonStyle}"
                             x:Name="btnManageReports" Click="BtnManageReports_OnClick"/>
+                    <Button Content="🚪 Logout" Style="{StaticResource LogoutButtonStyle}"
+                x:Name="btnLogout" Click="BtnLogout_OnClick"
+                HorizontalAlignment="Center"/>
                 </StackPanel>
             </Border>
             
