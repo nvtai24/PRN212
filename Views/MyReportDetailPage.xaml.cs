@@ -307,9 +307,9 @@ namespace PRN212.Views
         {
             ReportDAO dao = new ReportDAO();
             var report = Application.Current.Properties["report"] as Report;
-
+            var user = Application.Current.Properties["User"] as Models.User;
             // Load danh sách biển số vào ComboBox
-            this.LicensePlateComboBox.ItemsSource = dao.GetPlates();
+            this.LicensePlateComboBox.ItemsSource = dao.GetPlates(user.UserId);
             this.LicensePlateComboBox.DisplayMemberPath = "PlateNumber";
             this.LicensePlateComboBox.SelectedValuePath = "PlateNumber";
 
