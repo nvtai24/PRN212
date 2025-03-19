@@ -55,7 +55,7 @@
                         <TextBlock Text="Processed By" 
                             FontWeight="SemiBold" 
                             Margin="0,0,0,2"/>
-                         <TextBox x:Name="ProcessbyTextBox"
+                        <TextBox x:Name="ProcessbyTextBox"
                             Height="26"
                             Margin="0,0,0,8"
                             VerticalContentAlignment="Center"
@@ -185,9 +185,96 @@
                             Width="120"
                             Height="30"
                             Background="Red"
+                            Margin="0,0,10,0"
                             Foreground="White" Click="RejectButton_Click"/>
+                        <Button Name="PenaltyBtn" Content="Send penalty"
+                            Width="120"
+                            Height="30"
+                            Margin="0,0,10,0"
+                            Background="#2196F3"
+                            Foreground="White" Click="PenaltyBtn_Click"/>
                     </StackPanel>
                 </Border>
+
+                <!-- Add this inside your main Grid, after the existing content -->
+                <Popup x:Name="PenaltyPopup" 
+       Placement="Center" 
+       IsOpen="False" 
+       StaysOpen="False"
+       Width="600"
+       Height="Auto"
+                       MouseLeftButtonDown="Popup_MouseLeftButtonDown">
+                    <Border Background="#F5F5DC" 
+            BorderBrush="#E0E0E0" 
+            BorderThickness="1" 
+            CornerRadius="4"
+            Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="Send Penalty" 
+                       FontSize="18" 
+                       FontWeight="SemiBold" 
+                       Margin="0,0,0,15"/>
+
+                            <!-- Report ID -->
+                            <TextBlock Text="Report ID" FontWeight="SemiBold" Margin="0,0,0,2"/>
+                            <TextBox x:Name="PenaltyReportIdTextBox" 
+                     Height="26" 
+                     Margin="0,0,0,8" 
+                     VerticalContentAlignment="Center" 
+                     Padding="5,0" 
+                     IsReadOnly="True"/>
+
+                            <!-- License Plate -->
+                            <TextBlock Text="Plate Number" FontWeight="SemiBold" Margin="0,0,0,2"/>
+                            <TextBox x:Name="PenaltyPlateNumberTextBox" 
+                     Height="26" 
+                     Margin="0,0,0,8" 
+                     VerticalContentAlignment="Center" 
+                     Padding="5,0" 
+                     IsReadOnly="True"/>
+
+                            <!-- Violator -->
+                            <TextBlock Text="Violator" FontWeight="SemiBold" Margin="0,0,0,2"/>
+                            <TextBox x:Name="ViolatorTextBox" 
+                     Height="26" 
+                     Margin="0,0,0,8" 
+                     VerticalContentAlignment="Center" 
+                     Padding="5,0"/>
+
+                            <!-- Fine Amount -->
+                            <TextBlock Text="Fine Amount" FontWeight="SemiBold" Margin="0,0,0,2"/>
+                            <TextBox x:Name="FineAmountTextBox" 
+                     Height="26" 
+                     Margin="0,0,0,8" 
+                     VerticalContentAlignment="Center" 
+                     Padding="5,0"/>
+
+                            <!-- Paid Status -->
+                            <TextBlock Text="Paid Status" FontWeight="SemiBold" Margin="0,0,0,2"/>
+                            <TextBox x:Name="PaidStatusTextBox" 
+                                 Height="26" 
+                                 Margin="0,0,0,15" 
+                                 VerticalContentAlignment="Center" 
+                                 Padding="5,0" />
+
+
+                            <!-- Buttons -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="Cancel" 
+                        Width="80" 
+                        Height="28" 
+                        Margin="0,0,10,0" 
+                        Click="CancelPenalty_Click"/>
+                                <Button Content="Send" 
+                        Width="80" 
+                        Height="28" 
+                        Background="#2196F3" 
+                        Foreground="White" 
+                        Click="SendPenalty_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Popup>
             </Grid>
         </ScrollViewer>
     </Grid>

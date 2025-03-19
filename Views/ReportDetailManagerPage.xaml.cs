@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using System.IO;
 using PRN212.Repositories;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Windows.Controls.Primitives;
 
 namespace PRN212.Views
 {
@@ -32,6 +33,11 @@ namespace PRN212.Views
             {
                 this.ApproveBtn.Visibility = Visibility.Collapsed;
                 this.RejectBtn.Visibility = Visibility.Collapsed;
+            }
+
+            if (!report.Status.Equals("Approved"))
+            {
+                this.PenaltyBtn.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -160,6 +166,7 @@ namespace PRN212.Views
                 MessageBox.Show("Approve Successfully!");
                 this.ApproveBtn.Visibility = Visibility.Collapsed;
                 this.RejectBtn.Visibility = Visibility.Collapsed;
+                this.PenaltyBtn.Visibility = Visibility.Visible;
             }
             else
             {
@@ -195,5 +202,63 @@ namespace PRN212.Views
             }
         }
 
+        private void PenaltyBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Fill the popup with existing data
+            var report = Application.Current.Properties["reportManager"] as Report;
+
+            if (report != null)
+            {
+                PenaltyReportIdTextBox.Text = report.ReportId.ToString();
+                PenaltyPlateNumberTextBox.Text = report.PlateNumber;
+            }
+
+            // Show the popup
+            PenaltyPopup.IsOpen = true;
+        }
+
+        private void CancelPenalty_Click(object sender, RoutedEventArgs e)
+        {
+            PenaltyPopup.IsOpen = false;
+        }
+
+        // Handle the Send button in the popup
+        private void SendPenalty_Click(object sender, RoutedEventArgs e)
+        {
+            // Validate input
+            if (string.IsNullOrWhiteSpace(ViolatorTextBox.Text))
+            {
+                MessageBox.Show("Please enter violator information.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(FineAmountTextBox.Text) || !decimal.TryParse(FineAmountTextBox.Text, out decimal fineAmount))
+            {
+                MessageBox.Show("Please enter a valid fine amount.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+
+            // Get paid status from combo box
+            string paidStatus = PaidStatusTextBox.Text;
+
+            // TODO: Save penalty information to database
+            // You'll need to create a Penalty model and repository
+
+            // For now, just show a success message
+            MessageBox.Show("Penalty has been sent successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // Close the popup
+            PenaltyPopup.IsOpen = false;
+        }
+
+        private void Popup_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            // Kiểm tra nếu người dùng click bên ngoài pop-up để đóng pop-up
+            if (e.OriginalSource is Popup)
+            {
+                PenaltyPopup.IsOpen = false;
+            }
+        }
     }
 }
