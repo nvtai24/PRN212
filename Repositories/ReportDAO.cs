@@ -26,6 +26,17 @@ namespace PRN212.Repositories
             context.SaveChanges();
         }
 
+        public void SendReport2(Report report, Notification notice)
+        {
+            using (var context = new Prn212Context())
+            {
+                context.Reports.Add(report);
+                context.Notifications.Add(notice);
+                context.SaveChanges();
+            }
+        }
+
+
         public List<Vehicle> GetPlates(int myId)
         {
             Prn212Context context = new Prn212Context();
