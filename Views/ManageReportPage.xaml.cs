@@ -40,7 +40,8 @@ namespace PRN212.Views
             // Apply search filter (if provided)
             if (!string.IsNullOrEmpty(searchQuery))
             {
-                reports = reports.Where(r => r.ViolationType.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+                reports = reports.Where(r => r.ViolationType.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)
+                || r.Reporter.FullName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
             }
 
             // Sort by ReportDate (descending)

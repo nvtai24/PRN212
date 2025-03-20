@@ -22,6 +22,7 @@ public partial class MainWindow : Window
             this.btnMyVehicles.Visibility = Visibility.Collapsed;
             this.btnNotifications.Visibility = Visibility.Collapsed;
             this.btnSendReport.Visibility = Visibility.Collapsed;
+            this.btnMyViolations.Visibility = Visibility.Collapsed;
         }
         if (currentUser.Role != "Admin")
         {
