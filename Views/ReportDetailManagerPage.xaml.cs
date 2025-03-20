@@ -15,6 +15,7 @@ using System.IO;
 using PRN212.Repositories;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Windows.Controls.Primitives;
+using System.Security.Cryptography;
 
 namespace PRN212.Views
 {
@@ -75,7 +76,7 @@ namespace PRN212.Views
                 this.LicensePlateTextBox.Text = report.PlateNumber;
                 this.DescriptionTextBox.Text = report.Description;
 
-                if(report.ProcessedByNavigation != null)
+                if (report.ProcessedByNavigation != null)
                 {
                     this.ProcessbyTextBox.Text = report.ProcessedByNavigation.FullName;
                 }
@@ -154,6 +155,25 @@ namespace PRN212.Views
                         VideoDisplay.Pause();
                 };
             }
+            ViolationDAO vdao = new ViolationDAO();
+            var violation = vdao.GetViolationByReport(report.ReportId);
+            if (violation != null)
+            {
+                this.PenaltyBtn.Content = "View penalty sent";
+                this.PaidStatusTextBox.Visibility = Visibility.Visible;
+                this.PaidStatusText.Visibility = Visibility.Visible;
+                this.ConfirmPenalty.Visibility = Visibility.Collapsed;
+                this.FineAmountTextBox.Text = violation.FineAmount.ToString();
+                this.ConfirmPaid.Visibility = Visibility.Visible;
+                if (violation.PaidStatus == true)
+                {
+                    this.PaidStatusTextBox.Text = "Paid";
+                }
+                else
+                {
+                    this.PaidStatusTextBox.Text = "Unpaid";
+                }
+            }
         }
 
         private void MyReportDetailPage_Unloaded(object sender, RoutedEventArgs e)
@@ -231,7 +251,6 @@ namespace PRN212.Views
 
             if (report != null)
             {
-                PenaltyReportIdTextBox.Text = report.ReportId.ToString();
                 PenaltyPlateNumberTextBox.Text = report.PlateNumber;
             }
 
@@ -247,12 +266,6 @@ namespace PRN212.Views
         // Handle the Send button in the popup
         private void SendPenalty_Click(object sender, RoutedEventArgs e)
         {
-            // Validate input
-            if (string.IsNullOrWhiteSpace(ViolatorTextBox.Text))
-            {
-                MessageBox.Show("Please enter violator information.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
 
             if (string.IsNullOrWhiteSpace(FineAmountTextBox.Text) || !decimal.TryParse(FineAmountTextBox.Text, out decimal fineAmount))
             {
@@ -260,18 +273,59 @@ namespace PRN212.Views
                 return;
             }
 
+            ReportManagerDAO reportDao = new ReportManagerDAO();
 
             // Get paid status from combo box
             string paidStatus = PaidStatusTextBox.Text;
+            string plate = PenaltyPlateNumberTextBox.Text;
+            string amount = FineAmountTextBox.Text;
+            string rid = ReportIdTextBox.Text;
+            DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
 
-            // TODO: Save penalty information to database
-            // You'll need to create a Penalty model and repository
+            User violator = reportDao.GetViolator(plate);
+
+            Violation v = new Violation();
+            v.ReportId = Int32.Parse(rid);
+            v.PlateNumber = plate;
+            v.ViolatorId = violator.UserId;
+            v.FineAmount = fineAmount;
+            v.FineDate = DateTime.Now;
+            v.PaidStatus = false;
+
+            Notification notice = new Notification();
+            notice.UserId = violator.UserId;
+            notice.Message = "You have received a traffic violation penalty notice for your vehicle " + plate + " due to [" + this.ViolationTypeTextBox.Text + "]";
+            notice.PlateNumber = plate;
+            notice.SentDate = DateTime.Now;
+
+            ViolationDAO vdao = new ViolationDAO();
+            vdao.SendViolation(v, notice);
+
+            //MessageBox.Show(rid + ", " +plate +", " + amount +", " + violator.FullName + ", " + currentDate.ToString());
 
             // For now, just show a success message
             MessageBox.Show("Penalty has been sent successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-            // Close the popup
-            PenaltyPopup.IsOpen = false;
+            this.PenaltyBtn.Content = "View penalty sent";
+            this.PaidStatusTextBox.Visibility = Visibility.Visible;
+            this.PaidStatusText.Visibility = Visibility.Visible;
+            this.ConfirmPenalty.Visibility = Visibility.Collapsed;
+            this.ConfirmPaid.Visibility = Visibility.Visible;
+            if (v.PaidStatus == true)
+            {
+                this.PaidStatusTextBox.Text = "Paid";
+            }
+            else
+            {
+                this.PaidStatusTextBox.Text = "Unpaid";
+            }
+                // Close the popup
+                PenaltyPopup.IsOpen = false;
+        }
+
+        private void ConfirmPaid_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void Popup_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
