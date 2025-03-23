@@ -130,8 +130,14 @@ public partial class SendReportPage : Page
         {
             // Nếu người dùng chọn Yes, gửi báo cáo
             ReportDAO reportDao = new ReportDAO();
-            reportDao.SendReport(report);
+            Notification n = new Notification();
+            n.UserId = user.UserId;
+            n.Message = "Your report has been successfully sent to the vehicle with plate number: " + report.PlateNumber;
+            n.PlateNumber = report.PlateNumber;
+            n.SentDate = DateTime.Now;
 
+            reportDao.SendReport2(report, n);
+             
             MessageBox.Show($"Report submitted successfully!");
         }
         else

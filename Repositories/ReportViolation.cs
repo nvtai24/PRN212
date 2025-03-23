@@ -8,16 +8,21 @@ using PRN212.Models;
 
 namespace PRN212.Repositories
 {
-    class ReportDAO
+    class ReportViolation
     {
         public List<Report> GetReportsById(int UserId)
         {
-            Prn212Context context = new Prn212Context();
-            var reports = context.Reports
-                .Include(r => r.ProcessedByNavigation)
-                .Where(r => r.ReporterId == UserId).ToList();
-            return reports;
+            using (var context = new Prn212Context())
+            {
+                var reports = context.Reports
+                    .Include(r => r.ProcessedByNavigation)
+                    .Include(r => r.Violations)
+                    .Where(r => r.Violations.Any(v => v.ViolatorId == UserId))
+                    .ToList();
+                return reports;
+            }
         }
+
 
         public void SendReport(Report report)
         {

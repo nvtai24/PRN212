@@ -52,7 +52,7 @@
                 <!-- Search Box -->
                 <StackPanel Grid.Column="2" Orientation="Vertical">
                     <!-- Search Text -->
-                    <TextBlock Text="Search by violation type" Margin="0,0,0,5"/>
+                    <TextBlock Text="Search by violation/name" Margin="0,0,0,5"/>
 
                     <!-- Search Box -->
                     <TextBox x:Name="SearchBox" Height="35" VerticalContentAlignment="Center" TextChanged="SearchBox_TextChanged"/>
@@ -119,10 +119,10 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border CornerRadius="4"
-                Padding="8,3"
-                MinWidth="130"
-                MaxWidth="130"
-                HorizontalAlignment="Left">
+                                        Padding="8,3"
+                                        MinWidth="130"
+                                        MaxWidth="130"
+                                        HorizontalAlignment="Left">
                                         <Border.Style>
                                             <Style TargetType="Border">
                                                 <Style.Triggers>

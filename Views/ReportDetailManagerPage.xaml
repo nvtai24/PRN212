@@ -102,13 +102,13 @@
                         </StackPanel>
 
                         <TextBox x:Name="LicensePlateTextBox"
-         Height="26"
-         Margin="0,0,0,8"
-         VerticalContentAlignment="Center"
-         Padding="5,0"
-         IsReadOnly="True"
-         BorderBrush="Black"
-         BorderThickness="1"/>
+                             Height="26"
+                             Margin="0,0,0,8"
+                             VerticalContentAlignment="Center"
+                             Padding="5,0"
+                             IsReadOnly="True"
+                             BorderBrush="Black"
+                             BorderThickness="1"/>
 
 
                         <!-- Description -->
@@ -202,48 +202,31 @@
 
                 <!-- Add this inside your main Grid, after the existing content -->
                 <Popup x:Name="PenaltyPopup" 
-       Placement="Center" 
-       IsOpen="False" 
-       StaysOpen="False"
-       Width="600"
-       Height="Auto"
+                           Placement="Center" 
+                           IsOpen="False" 
+                           StaysOpen="False"
+                           Width="400"
+                           Height="Auto"
                        MouseLeftButtonDown="Popup_MouseLeftButtonDown">
                     <Border Background="#F5F5DC" 
-            BorderBrush="#E0E0E0" 
-            BorderThickness="1" 
-            CornerRadius="4"
-            Padding="20">
+                            BorderBrush="#E0E0E0" 
+                            BorderThickness="1" 
+                            CornerRadius="4"
+                            Padding="20">
                         <StackPanel>
-                            <TextBlock Text="Send Penalty" 
-                       FontSize="18" 
-                       FontWeight="SemiBold" 
-                       Margin="0,0,0,15"/>
-
-                            <!-- Report ID -->
-                            <TextBlock Text="Report ID" FontWeight="SemiBold" Margin="0,0,0,2"/>
-                            <TextBox x:Name="PenaltyReportIdTextBox" 
-                     Height="26" 
-                     Margin="0,0,0,8" 
-                     VerticalContentAlignment="Center" 
-                     Padding="5,0" 
-                     IsReadOnly="True"/>
+                            <TextBlock Text="Penalty" 
+                           FontSize="18" 
+                           FontWeight="SemiBold" 
+                           Margin="0,0,0,15"/>
 
                             <!-- License Plate -->
                             <TextBlock Text="Plate Number" FontWeight="SemiBold" Margin="0,0,0,2"/>
                             <TextBox x:Name="PenaltyPlateNumberTextBox" 
-                     Height="26" 
-                     Margin="0,0,0,8" 
-                     VerticalContentAlignment="Center" 
-                     Padding="5,0" 
-                     IsReadOnly="True"/>
-
-                            <!-- Violator -->
-                            <TextBlock Text="Violator" FontWeight="SemiBold" Margin="0,0,0,2"/>
-                            <TextBox x:Name="ViolatorTextBox" 
-                     Height="26" 
-                     Margin="0,0,0,8" 
-                     VerticalContentAlignment="Center" 
-                     Padding="5,0"/>
+                             Height="26" 
+                             Margin="0,0,0,8" 
+                             VerticalContentAlignment="Center" 
+                             Padding="5,0" 
+                             IsReadOnly="True"/>
 
                             <!-- Fine Amount -->
                             <TextBlock Text="Fine Amount" FontWeight="SemiBold" Margin="0,0,0,2"/>
@@ -254,27 +237,35 @@
                      Padding="5,0"/>
 
                             <!-- Paid Status -->
-                            <TextBlock Text="Paid Status" FontWeight="SemiBold" Margin="0,0,0,2"/>
+                            <TextBlock Name="PaidStatusText" Text="Paid Status" FontWeight="SemiBold" Margin="0,0,0,2" Visibility="Collapsed"/>
                             <TextBox x:Name="PaidStatusTextBox" 
                                  Height="26" 
                                  Margin="0,0,0,15" 
                                  VerticalContentAlignment="Center" 
-                                 Padding="5,0" />
+                                 Padding="5,0" Visibility="Collapsed"
+                                 IsReadOnly="True"/>
 
 
                             <!-- Buttons -->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Button Content="Cancel" 
-                        Width="80" 
-                        Height="28" 
-                        Margin="0,0,10,0" 
-                        Click="CancelPenalty_Click"/>
-                                <Button Content="Send" 
-                        Width="80" 
-                        Height="28" 
-                        Background="#2196F3" 
-                        Foreground="White" 
-                        Click="SendPenalty_Click"/>
+                                Width="80" 
+                                Height="28" 
+                                Margin="0,0,10,0" 
+                                Click="CancelPenalty_Click"/>
+                                <Button Name="ConfirmPaid" Content="Confirm paid" 
+                                Width="80" 
+                                Height="28" 
+                                Background="#2196F3" 
+                                Foreground="White" 
+                                Click="SendPenalty_Click"
+                                Visibility="Collapsed"/>
+                                <Button Name="ConfirmPenalty" Content="Send" 
+                                Width="80" 
+                                Height="28" 
+                                Background="#2196F3" 
+                                Foreground="White" 
+                                Click="SendPenalty_Click"/>
                             </StackPanel>
                         </StackPanel>
                     </Border>

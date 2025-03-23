@@ -62,5 +62,15 @@ namespace PRN212.Repositories
                 return !exists;
             }
         }
+
+        public User GetViolator(string plate)
+        {
+            Prn212Context context = new Prn212Context();
+            var violator = context.Users
+                .Include(u => u.Vehicles)
+                .FirstOrDefault(u => u.Vehicles.Any(v => v.PlateNumber.Equals(plate)));
+
+            return violator;        
+        }
     }
 }
