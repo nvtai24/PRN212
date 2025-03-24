@@ -26,7 +26,6 @@ public partial class MainWindow : Window
         if (currentUser.Role != "Admin")
         {
             this.btnManageUsers.Visibility = Visibility.Collapsed;
-            
         }
 
     }

@@ -19,7 +19,6 @@ namespace PRN212.Repositories
                     .Include(n => n.User)
                     .Include(n => n.PlateNumberNavigation)
                                                                     .Where(n => n.UserId == uid)
-                    .OrderByDescending(n => n.SentDate)
                     .ToList();
             }
         }
