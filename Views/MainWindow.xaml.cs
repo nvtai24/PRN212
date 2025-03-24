@@ -14,7 +14,6 @@ public partial class MainWindow : Window
         if(currentUser.Role != "TrafficPolice")
         {
             this.btnManageReports.Visibility = Visibility.Collapsed;
-            this.btnManageUsers.Visibility = Visibility.Collapsed;
         }
         if (currentUser.Role != "Citizen")
         {
@@ -27,7 +26,6 @@ public partial class MainWindow : Window
         if (currentUser.Role != "Admin")
         {
             this.btnManageUsers.Visibility = Visibility.Collapsed;
-            
         }
 
     }

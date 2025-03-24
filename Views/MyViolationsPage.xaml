@@ -17,7 +17,7 @@
         <!-- Header and Filters -->
         <StackPanel Grid.Row="0" Margin="40,40,40,20">
             <!-- Header -->
-            <TextBlock Text="My Submitted Reports" 
+            <TextBlock Text="My Violation" 
                   FontSize="28" 
                   FontWeight="SemiBold"
                   Margin="0,0,0,30"/>
