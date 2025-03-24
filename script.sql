@@ -1,6 +1,88 @@
+USE [master]
+GO
+/****** Object:  Database [PRN212]    Script Date: 3/25/2025 12:11:22 AM ******/
+CREATE DATABASE [PRN212]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'PRN212', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\PRN212.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'PRN212_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\PRN212_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [PRN212] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [PRN212].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [PRN212] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [PRN212] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [PRN212] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [PRN212] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [PRN212] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [PRN212] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [PRN212] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [PRN212] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [PRN212] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [PRN212] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [PRN212] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [PRN212] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [PRN212] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [PRN212] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [PRN212] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [PRN212] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [PRN212] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [PRN212] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [PRN212] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [PRN212] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [PRN212] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [PRN212] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [PRN212] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [PRN212] SET  MULTI_USER 
+GO
+ALTER DATABASE [PRN212] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [PRN212] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [PRN212] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [PRN212] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [PRN212] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [PRN212] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+ALTER DATABASE [PRN212] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [PRN212] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
 USE [PRN212]
 GO
-/****** Object:  Table [dbo].[Notifications]    Script Date: 3/23/2025 9:06:17 AM ******/
+/****** Object:  Table [dbo].[Notifications]    Script Date: 3/25/2025 12:11:22 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18,7 +100,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Reports]    Script Date: 3/23/2025 9:06:17 AM ******/
+/****** Object:  Table [dbo].[Reports]    Script Date: 3/25/2025 12:11:22 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -41,7 +123,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 3/23/2025 9:06:17 AM ******/
+/****** Object:  Table [dbo].[Users]    Script Date: 3/25/2025 12:11:22 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -61,7 +143,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Vehicles]    Script Date: 3/23/2025 9:06:17 AM ******/
+/****** Object:  Table [dbo].[Vehicles]    Script Date: 3/25/2025 12:11:22 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -79,7 +161,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Violations]    Script Date: 3/23/2025 9:06:17 AM ******/
+/****** Object:  Table [dbo].[Violations]    Script Date: 3/25/2025 12:11:22 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -101,11 +183,11 @@ GO
 SET IDENTITY_INSERT [dbo].[Notifications] ON 
 
 INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (2, 2, N'Your violation report has been approved', N'29B-67890', CAST(N'2025-03-16T00:00:00.000' AS DateTime), 1)
-INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (3, 3, N'B?n có m?t vi ph?m giao thông m?i c?n x? lý', N'30A-12345', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 0)
-INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (4, 4, N'Xe c?a b?n dã b? báo cáo vi ph?m', N'51B-67890', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 1)
-INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (5, 3, N'Nh?c nh?: H?n n?p ph?t c?a b?n s?p d?n', N'43C-11111', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 0)
-INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (6, 4, N'Vi ph?m c?a b?n dã du?c x? lý', N'92D-22222', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 1)
-INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (7, 5, N'B?n có thông báo m?i v? vi ph?m giao thông', N'29E-33333', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 0)
+INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (3, 3, N'You have received a traffic violation penalty notice for your vehicle 30A-12345', N'30A-12345', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 0)
+INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (4, 4, N'You have received a traffic violation penalty notice for your vehicle 51B-67890', N'51B-67890', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 1)
+INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (5, 3, N'You have received a traffic violation penalty notice for your vehicle 43C-11111', N'43C-11111', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 0)
+INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (6, 4, N'You have received a traffic violation penalty notice for your vehicle 29A-12345 due to [Tai nan]', N'92D-22222', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 1)
+INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (7, 5, N'You have received a traffic violation penalty notice for your vehicle 29A-12345 due to [sdfdsf]', N'29E-33333', CAST(N'2025-03-17T23:48:54.397' AS DateTime), 0)
 INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (15, 3, N'You have received a traffic violation penalty notice for your vehicle 43C-11111', N'43C-11111', CAST(N'2025-03-20T15:29:40.817' AS DateTime), 0)
 INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (16, 1, N'You have received a traffic violation penalty notice for your vehicle 29A-12345 due to ngu', N'29A-12345', CAST(N'2025-03-20T15:35:31.493' AS DateTime), 1)
 INSERT [dbo].[Notifications] ([NotificationID], [UserID], [Message], [PlateNumber], [SentDate], [IsRead]) VALUES (17, 1, N'You have received a traffic violation penalty notice for your vehicle 29A-12345 due to [sdfsdf]', N'29A-12345', CAST(N'2025-03-20T15:36:22.050' AS DateTime), 1)
@@ -131,13 +213,13 @@ SET IDENTITY_INSERT [dbo].[Reports] ON
 
 INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (1, 1, N'Speeding', N'Exceeded speed limit on the highway', N'29A-12345', N'http://example.com/image.jpg', N'http://example.com/video.mp4', N'Hanoi Highway', CAST(N'2025-03-16T11:04:51.990' AS DateTime), N'Rejected', NULL)
 INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (2, 6, N'Parking Violation', N'Parking in a no-parking zone', N'29B-67890', N'http://example.com/image2.jpg', N'http://example.com/video2.mp4', N'Downtown Hanoi', CAST(N'2025-03-16T11:04:51.990' AS DateTime), N'Approved', 2)
-INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (3, 6, N'Speeding', N'Vu?t quá t?c d? 60km/h trong khu dân cu', N'30A-12345', N'image1.jpg', N'video1.mp4', N'Ðu?ng Láng, Hà N?i', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Approved', 2)
-INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (4, 6, N'Wrong Lane', N'Ði không dúng làn du?ng quy d?nh', N'51B-67890', N'image2.jpg', NULL, N'Nguy?n Van Linh, HCMC', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Rejected', NULL)
-INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (5, 5, N'Red Light', N'Vu?t dèn d?', N'43C-11111', N'image3.jpg', N'video3.mp4', N'Lê Du?n, Ðà N?ng', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Approved', 2)
-INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (6, 5, N'No Helmet', N'Không d?i mu b?o hi?m', N'92D-22222', N'image4.jpg', NULL, N'Tr?n Phú, H?i Phòng', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Pending', NULL)
-INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (7, 6, N'Parking', N'Ð? xe sai quy d?nh', N'29E-33333', N'image5.jpg', N'video5.mp4', N'Nguy?n Hu?, HCMC', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Pending', NULL)
+INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (3, 6, N'Speeding', N'Exceeded speed limit on the highway', N'30A-12345', N'image1.jpg', N'video1.mp4', N'Thach That', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Approved', 2)
+INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (4, 6, N'Wrong Lane', N'Wrong Lane', N'51B-67890', N'image2.jpg', NULL, N'Thach That', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Rejected', NULL)
+INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (5, 5, N'Red Light', N'Red Light', N'43C-11111', N'image3.jpg', N'video3.mp4', N'Thach That', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Approved', 2)
+INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (6, 5, N'No Helmet', N'No Helmet', N'92D-22222', N'image4.jpg', NULL, N'Thach That', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Pending', NULL)
+INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (7, 6, N'Parking', N'Parking in a no-parking zone', N'29E-33333', N'image5.jpg', N'video5.mp4', N'Thach That', CAST(N'2025-03-17T23:48:54.397' AS DateTime), N'Pending', NULL)
 INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (9, 1, N'No Helmet', N'123', N'29E-33333', N'Images\460624155_122143864088291290_4040010554300510664_n.jpg', N'Videos\6412874533358.mp4', N'YB', CAST(N'2025-03-18T10:06:11.603' AS DateTime), N'Rejected', NULL)
-INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (12, 1, N'Bruh', N'di sai quy dinh', N'30A-12345', NULL, NULL, N'Thach That', CAST(N'2025-03-18T17:18:12.583' AS DateTime), N'Rejected', NULL)
+INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (12, 1, N'Bruh', N'No Helmet', N'30A-12345', NULL, NULL, N'Thach That', CAST(N'2025-03-18T17:18:12.583' AS DateTime), N'Rejected', NULL)
 INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (13, 1, N'di xe ngu', N'huhu ngu', N'92D-22222', N'Images\460624155_122143864088291290_4040010554300510664_n.jpg', NULL, N'Ha Noi', CAST(N'2025-03-18T17:25:16.617' AS DateTime), N'Approved', 2)
 INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (14, 1, N'Khong doi mux', N'dddxxx', N'43C-11111', N'Images\7006288841-1526100974306459281938.jpg', N'Videos\6412874533358.mp4', N'Yen Bai', CAST(N'2025-03-18T17:40:11.553' AS DateTime), N'Approved', 2)
 INSERT [dbo].[Reports] ([ReportID], [ReporterID], [ViolationType], [Description], [PlateNumber], [ImageURL], [VideoURL], [Location], [ReportDate], [Status], [ProcessedBy]) VALUES (15, 1, N'Di xe cham', N'cham', N'51B-67890', N'Images\IMG_9714.JPG', N'Videos\6412874533358.mp4', N'Yen Bai', CAST(N'2025-03-18T21:42:22.090' AS DateTime), N'Pending', NULL)
@@ -170,11 +252,11 @@ SET IDENTITY_INSERT [dbo].[Users] ON
 
 INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (1, N'Nguyen Tai', N'a', N'a', N'Citizen', N'0987654321', N'123 Main St, Hanoi', 1)
 INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (2, N'Pham Minh', N'b', N'b', N'TrafficPolice', N'0912345678', N'456 Elm St, Hanoi', 1)
-INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (3, N'John Admin', N'admin@gmail.com', N'123456', N'Admin', N'0901234567', N'Hà N?i', 1)
-INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (4, N'Mary Police', N'police@gmail.com', N'123456', N'TrafficPolice', N'0901234568', N'H? Chí Minh', 1)
-INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (5, N'Peter Parker', N'peter@gmail.com', N'123456', N'Citizen', N'0901234569', N'Ðà N?ng', 1)
-INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (6, N'Tony Stark', N'tony@gmail.com', N'123456', N'Citizen', N'0901234570', N'H?i Phòng', 1)
-INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (7, N'Steve Rogers', N'steve@gmail.com', N'123456', N'TrafficPolice', N'0901234571', N'C?n Tho', 1)
+INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (3, N'John Admin', N'admin@gmail.com', N'123456', N'Admin', N'0901234567', N'Ha Noi', 1)
+INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (4, N'Mary Police', N'police@gmail.com', N'123456', N'TrafficPolice', N'0901234568', N'Ho Chi Minh', 1)
+INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (5, N'Peter Parker', N'peter@gmail.com', N'123456', N'Citizen', N'0901234569', N'Da Nang', 1)
+INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (6, N'Tony Stark', N'tony@gmail.com', N'123456', N'Citizen', N'0901234570', N'Hai Phong', 1)
+INSERT [dbo].[Users] ([UserID], [FullName], [Email], [Password], [Role], [Phone], [Address], [Status]) VALUES (7, N'Steve Rogers', N'steve@gmail.com', N'123456', N'TrafficPolice', N'0901234571', N'Can Tho', 1)
 SET IDENTITY_INSERT [dbo].[Users] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Vehicles] ON 
@@ -186,6 +268,17 @@ INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model]
 INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (5, N'43C-11111', 3, N'Ford', N'Ranger', 2019)
 INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (6, N'92D-22222', 4, N'Hyundai', N'Tucson', 2022)
 INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (7, N'29E-33333', 5, N'Mazda', N'CX-5', 2021)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (8, N'30A-10001', 1, N'Ford', N'Focus', 2022)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (9, N'30A-10002', 1, N'Chevrolet', N'Malibu', 2021)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (10, N'30A-10003', 2, N'BMW', N'X5', 2020)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (11, N'30A-10004', 2, N'Mercedes-Benz', N'C-Class', 2019)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (12, N'30A-10005', 3, N'Audi', N'A4', 2020)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (13, N'30A-10006', 3, N'Toyota', N'Camry', 2021)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (14, N'30A-10007', 4, N'Honda', N'Accord', 2019)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (15, N'30A-10008', 4, N'Kia', N'Optima', 2022)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (16, N'30A-10009', 5, N'Nissan', N'Altima', 2021)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (17, N'30A-10010', 6, N'Volkswagen', N'Jetta', 2020)
+INSERT [dbo].[Vehicles] ([VehicleID], [PlateNumber], [OwnerID], [Brand], [Model], [ManufactureYear]) VALUES (18, N'30A-10011', 7, N'Mazda', N'CX-5', 2021)
 SET IDENTITY_INSERT [dbo].[Vehicles] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Violations] ON 
@@ -215,7 +308,7 @@ SET IDENTITY_INSERT [dbo].[Violations] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__Users__A9D1053433ADB146]    Script Date: 3/23/2025 9:06:17 AM ******/
+/****** Object:  Index [UQ__Users__A9D105342C086912]    Script Date: 3/25/2025 12:11:23 AM ******/
 ALTER TABLE [dbo].[Users] ADD UNIQUE NONCLUSTERED 
 (
 	[Email] ASC
@@ -223,7 +316,7 @@ ALTER TABLE [dbo].[Users] ADD UNIQUE NONCLUSTERED
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__Vehicles__036926246F21B66D]    Script Date: 3/23/2025 9:06:17 AM ******/
+/****** Object:  Index [UQ__Vehicles__036926246DF238AB]    Script Date: 3/25/2025 12:11:23 AM ******/
 ALTER TABLE [dbo].[Vehicles] ADD UNIQUE NONCLUSTERED 
 (
 	[PlateNumber] ASC
@@ -265,4 +358,8 @@ GO
 ALTER TABLE [dbo].[Reports]  WITH CHECK ADD CHECK  (([Status]='Rejected' OR [Status]='Approved' OR [Status]='Pending'))
 GO
 ALTER TABLE [dbo].[Users]  WITH CHECK ADD CHECK  (([Role]='Admin' OR [Role]='TrafficPolice' OR [Role]='Citizen'))
+GO
+USE [master]
+GO
+ALTER DATABASE [PRN212] SET  READ_WRITE 
 GO
