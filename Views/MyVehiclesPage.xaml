@@ -97,7 +97,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID"
                                           Binding="{Binding VehicleId}"
-                                          Width="70"/>
+                                          Width="70" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="Plate Number"
                                           Binding="{Binding PlateNumber}"
                                           Width="120"/>

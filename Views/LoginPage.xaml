@@ -146,14 +146,14 @@
                         x:Name="txtPassword"
                         FontSize="14"/>
 
-            <TextBlock HorizontalAlignment="Right" Margin="0,0,0,20">
+           <!-- <TextBlock HorizontalAlignment="Right" Margin="0,0,0,20">
                 <Hyperlink Foreground="#2563eb" 
                           TextDecorations="None"
                           Name="ForgotPassword"
                           Click="ForgotPassword_OnClick">
                     Forgot password?
                 </Hyperlink>
-            </TextBlock>
+            </TextBlock>!-->
 
             <Button Content="Login" 
                     Style="{StaticResource LoginButtonStyle}"
