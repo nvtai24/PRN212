@@ -31,7 +31,11 @@ public partial class LoginPage : Page
         if (isValidUser)
         {
             var user = userDao.GetUserByEmail(email);
-
+            if (!user.Status)
+            {
+                MessageBox.Show("Your account has been disabled. Please contact the administrator.", "Account Disabled", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             Application.Current.Properties["User"] = user;
             var currentWindow = Window.GetWindow(this);
             MainWindow mainWindow = new MainWindow();
