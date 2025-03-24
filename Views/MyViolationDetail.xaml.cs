@@ -40,7 +40,8 @@ namespace PRN212.Views
             {
                 var violate = vdao.GetViolationByReport(report.ReportId);
                 this.ReportIdTextBox.Text = report.ReportId.ToString();
-                this.StatusTextBox.Text = violate.PaidStatus.ToString();
+                this.StatusTextBox.Text = violate.PaidStatus.ToString().Equals("True") ? "Paid" : "Unpaid";
+
                 this.LocationTextBox.Text = report.Location;
                 this.ViolationTypeTextBox.Text = report.ViolationType;
                 this.LicensePlateTextBox.Text = report.PlateNumber;
