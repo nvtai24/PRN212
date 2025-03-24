@@ -165,9 +165,17 @@ namespace PRN212.Views
                 this.ConfirmPenalty.Visibility = Visibility.Collapsed;
                 this.FineAmountTextBox.Text = violation.FineAmount.ToString();
                 this.ConfirmPaid.Visibility = Visibility.Visible;
+                this.PenaltyId.Text = violation.ViolationId.ToString();
+
+                if(violation.FineAmount > 0 || violation.FineAmount.ToString() != null)
+                {
+                    this.FineAmountTextBox.IsReadOnly = true;
+                }
+
                 if (violation.PaidStatus == true)
                 {
                     this.PaidStatusTextBox.Text = "Paid";
+                    this.ConfirmPaid.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
@@ -311,6 +319,8 @@ namespace PRN212.Views
             this.PaidStatusText.Visibility = Visibility.Visible;
             this.ConfirmPenalty.Visibility = Visibility.Collapsed;
             this.ConfirmPaid.Visibility = Visibility.Visible;
+            this.PenaltyId.Text = v.ViolationId.ToString();
+            this.FineAmountTextBox.IsReadOnly = true;
             if (v.PaidStatus == true)
             {
                 this.PaidStatusTextBox.Text = "Paid";
@@ -325,8 +335,32 @@ namespace PRN212.Views
 
         private void ConfirmPaid_Click(object sender, RoutedEventArgs e)
         {
+            string vioId = this.PenaltyId.Text;
+            Prn212Context context = new Prn212Context();
 
+            // Tìm kiếm vi phạm theo ViolationId
+            Violation v = context.Violations.FirstOrDefault(violation => violation.ViolationId == Int32.Parse(vioId));
+
+            // Hiển thị thông báo xác nhận
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to mark this violation as paid?",
+                                                      "Confirm Payment",
+                                                      MessageBoxButton.YesNo,
+                                                      MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes && v != null)
+            {
+                v.PaidStatus = true;  // Cập nhật trạng thái đã thanh toán
+                context.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+                this.PaidStatusTextBox.Text = "Paid";
+                this.ConfirmPaid.Visibility = Visibility.Collapsed;
+            }
+            else if (v == null)
+            {
+                // Xử lý khi không tìm thấy Violation
+                MessageBox.Show("Violation not found!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
         private void Popup_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
