@@ -79,7 +79,6 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-
                                     <!-- Notification Icon -->
                                     <Border Grid.Column="0"
                                             Width="40"
