@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
 using PRN212.Models;
 using PRN212.Repositories;
@@ -22,7 +23,6 @@ public partial class ManageUserPage : Page
         UpdateUserStatistics();
     }
 
-
     private void filterBtn_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         var keyword = this.SearchTextBox.Text;
@@ -36,9 +36,11 @@ public partial class ManageUserPage : Page
         this.UsersDataGrid.ItemsSource = UserRepository.FilterUsers(keyword, role, status);
     }
 
-    private void exportBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void ShowFromAddUser(object sender, System.Windows.RoutedEventArgs e)
     {
-
+        AddUserWindow addUser = new AddUserWindow();
+        addUser.ShowDialog();   
+        LoadUsers();
     }
 
     private void ClearFilter()
@@ -47,7 +49,6 @@ public partial class ManageUserPage : Page
         this.RoleComboBox.SelectedIndex = 0;
         this.StatusComboBox.SelectedIndex = 0;
     }
-
 
     private void UpdateUserStatistics()
     {
@@ -69,13 +70,10 @@ public partial class ManageUserPage : Page
         var user = button.DataContext as User;
         if (user == null) return;
 
-        // Toggle trạng thái
         UserRepository.ToggleStatus(user);
 
-        // Làm mới DataGrid
         UsersDataGrid.Items.Refresh();
 
-        // Cập nhật thống kê nếu cần
         UpdateUserStatistics();
     }
 
@@ -84,17 +82,42 @@ public partial class ManageUserPage : Page
 
         var name = this.EditNameTb.Text;
         var phone = this.EditPhoneTb.Text;
-        var email = this.EditMailTb.Text;
         var address = this.EditAddressTb.Text;
         var role = this.EditRoleCb.Text;
 
-        User u = new User();
-        u.Address = address;
-        u.Email = email;
-        u.Phone = phone;
-        u.FullName = name;
-        
-         u.Role = role;
+
+        if (string.IsNullOrEmpty(name))
+        {
+            MessageBox.Show("Please enter a name!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(phone) || !Regex.IsMatch(phone, @"^\d{10,}$"))
+        {
+            MessageBox.Show("Please enter a phone number!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(address))
+        {
+            MessageBox.Show("Please enter an address!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(role))
+        {
+            MessageBox.Show("Please select a role!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        var u = this.UsersDataGrid.SelectedItem as User;
+        if (u != null)
+        {
+            u.FullName = name;
+            u.Phone = phone;
+            u.Address = address;
+            u.Role = role;
+        }
 
         UserRepository.UpdateUser(u);
 

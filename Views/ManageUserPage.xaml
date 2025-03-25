@@ -11,8 +11,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!-- Header and Filters -->
@@ -22,34 +22,34 @@
             <TextBlock Text="Manage Users"
                        FontSize="28"
                        FontWeight="SemiBold"
-                       Margin="0,0,0,30" />
+                       Margin="0,0,0,30"/>
 
             <!-- Filters -->
             <Grid Margin="0,0,0,20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Search -->
                 <StackPanel Grid.Column="0">
                     <TextBlock Text="Search"
-                               Margin="0,0,0,5" />
+                               Margin="0,0,0,5"/>
                     <TextBox x:Name="SearchTextBox"
                              Height="35"
                              VerticalContentAlignment="Center"
-                             Padding="10,0" />
+                             Padding="10,0"/>
                 </StackPanel>
 
                 <!-- Role Filter -->
                 <StackPanel Grid.Column="2">
                     <TextBlock Text="Role"
-                               Margin="0,0,0,5" />
+                               Margin="0,0,0,5"/>
                     <ComboBox x:Name="RoleComboBox"
                               Height="35"
                               VerticalContentAlignment="Center">
@@ -62,7 +62,7 @@
                 <!-- Status Filter -->
                 <StackPanel Grid.Column="4">
                     <TextBlock Text="Status"
-                               Margin="0,0,0,5" />
+                               Margin="0,0,0,5"/>
                     <ComboBox x:Name="StatusComboBox"
                               Height="35"
                               VerticalContentAlignment="Center">
@@ -81,7 +81,7 @@
                         Background="#2196F3"
                         Foreground="White"
                         Name="filterBtn"
-                        Click="filterBtn_Click" />
+                        Click="filterBtn_Click"/>
             </Grid>
         </StackPanel>
 
@@ -91,9 +91,9 @@
                 BorderBrush="#E0E0E0">
             <Grid Margin="40,20,40,40">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="7*" />
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Users DataGrid -->
@@ -121,17 +121,17 @@
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="Background"
-                                    Value="#F8F8F8" />
+                                    Value="#F8F8F8"/>
                             <Setter Property="Padding"
-                                    Value="10,10" />
+                                    Value="10,10"/>
                             <Setter Property="FontWeight"
-                                    Value="SemiBold" />
+                                    Value="SemiBold"/>
                             <Setter Property="HorizontalContentAlignment"
-                                    Value="Left" />
+                                    Value="Left"/>
                         </Style>
                         <Style TargetType="DataGridCell">
                             <Setter Property="Padding"
-                                    Value="10,8" />
+                                    Value="10,8"/>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -140,7 +140,7 @@
                                                 BorderThickness="{TemplateBinding BorderThickness}"
                                                 Background="{TemplateBinding Background}">
                                             <ContentPresenter
-                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                                         </Border>
                                     </ControlTemplate>
                                 </Setter.Value>
@@ -151,25 +151,24 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID"
                                             Binding="{Binding UserId}"
-                                            Width="auto" />
+                                            Width="auto"/>
                         <DataGridTextColumn Header="Full Name"
                                             Binding="{Binding FullName}"
-                                            Width="auto" />
+                                            Width="auto"/>
                         <DataGridTextColumn Header="Phone"
                                             Binding="{Binding Phone}"
-                                            Width="auto" />
+                                            Width="auto"/>
                         <DataGridTextColumn Header="Email"
                                             Binding="{Binding Email}"
-                                            Width="auto" />
+                                            Width="auto"/>
                         <DataGridTextColumn Header="Address"
                                             Binding="{Binding Address}"
-                                            Width="auto" />
+                                            Width="auto"/>
                         <DataGridTemplateColumn Header="Role"
                                                 Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Role}"
-                                               >
+                                    <TextBlock Text="{Binding Role}">
                                     </TextBlock>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -188,12 +187,12 @@
                                                     <DataTrigger Binding="{Binding StatusString}"
                                                                  Value="Active">
                                                         <Setter Property="Background"
-                                                                Value="#E8F5E9" />
+                                                                Value="#E8F5E9"/>
                                                     </DataTrigger>
                                                     <DataTrigger Binding="{Binding StatusString}"
                                                                  Value="Inactive">
                                                         <Setter Property="Background"
-                                                                Value="#FFEBEE" />
+                                                                Value="#FFEBEE"/>
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
@@ -206,12 +205,12 @@
                                                         <DataTrigger Binding="{Binding StatusString}"
                                                                      Value="Active">
                                                             <Setter Property="Foreground"
-                                                                    Value="#388E3C" />
+                                                                    Value="#388E3C"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding StatusString}"
                                                                      Value="Inactive">
                                                             <Setter Property="Foreground"
-                                                                    Value="#D32F2F" />
+                                                                    Value="#D32F2F"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -235,7 +234,7 @@
                                                 Background="#2196F3"
                                                 Name="EditButton"
                                                 Click="EditButton_Click"
-                                                Foreground="White" />
+                                                Foreground="White"/>
                                         <Button x:Name="statusButton"
                                                 Click="StatusButton_Click"
                                                 Height="30"
@@ -247,16 +246,16 @@
                                                         <DataTrigger Binding="{Binding Status}"
                                                                      Value="True">
                                                             <Setter Property="Content"
-                                                                    Value="Block" />
+                                                                    Value="Block"/>
                                                             <Setter Property="Background"
-                                                                    Value="#FF9800" />
+                                                                    Value="#FF9800"/>
                                                         </DataTrigger>
                                                         <DataTrigger Binding="{Binding Status}"
                                                                      Value="False">
                                                             <Setter Property="Content"
-                                                                    Value="Activate" />
+                                                                    Value="Activate"/>
                                                             <Setter Property="Background"
-                                                                    Value="#4CAF50" />
+                                                                    Value="#4CAF50"/>
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -282,41 +281,41 @@
 
                         <TextBlock Text="Fullname"
                                    FontWeight="SemiBold"
-                                   Padding="5" />
+                                   Padding="5"/>
                         <TextBox x:Name="EditNameTb"
                                  Padding="5"
                                  Margin="0,0,0,10"
-                                 VerticalContentAlignment="Center" />
+                                 VerticalContentAlignment="Center"/>
 
                         <TextBlock Text="Phone"
                                    FontWeight="SemiBold"
-                                   Padding="5" />
+                                   Padding="5"/>
                         <TextBox x:Name="EditPhoneTb"
                                  Padding="5"
                                  Margin="0,0,0,10"
-                                 VerticalContentAlignment="Center" />
+                                 VerticalContentAlignment="Center"/>
 
                         <TextBlock Text="Email"
                                    FontWeight="SemiBold"
-                                   Padding="5" />
+                                   Padding="5"/>
                         <TextBox x:Name="EditMailTb"
                                  IsReadOnly="True"
                                  Background="#EEEEEE"
                                  Padding="5"
                                  VerticalContentAlignment="Center"
-                                 Margin="0,0,0,10" />
+                                 Margin="0,0,0,10"/>
 
                         <TextBlock Text="Address"
                                    FontWeight="SemiBold"
-                                   Margin="0,0,0,5" />
+                                   Margin="0,0,0,5"/>
                         <TextBox x:Name="EditAddressTb"
                                  Padding="5"
                                  VerticalContentAlignment="Center"
-                                 Margin="0,0,0,10" />
+                                 Margin="0,0,0,10"/>
 
                         <TextBlock Text="Role"
                                    FontWeight="SemiBold"
-                                   Margin="0,0,0,5" />
+                                   Margin="0,0,0,5"/>
                         <ComboBox Name="EditRoleCb"
                                   Padding="5"
                                   VerticalContentAlignment="Center"
@@ -343,7 +342,7 @@
                                 Background="#4CAF50"
                                 Foreground="White"
                                 Name="SaveButton"
-                                Click="SaveButton_Click" />
+                                Click="SaveButton_Click"/>
                     </StackPanel>
                 </Border>
 
@@ -359,29 +358,29 @@
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Left">
                             <TextBlock Text="Total Users: "
-                                       FontWeight="SemiBold" />
+                                       FontWeight="SemiBold"/>
                             <TextBlock x:Name="totalTb"
                                        Text="0"
-                                       Margin="5,0,20,0" />
+                                       Margin="5,0,20,0"/>
                             <TextBlock Text="Active: "
-                                       FontWeight="SemiBold" />
+                                       FontWeight="SemiBold"/>
                             <TextBlock x:Name="activeTb"
                                        Text="0"
-                                       Margin="5,0,20,0" />
+                                       Margin="5,0,20,0"/>
                             <TextBlock Text="Blocked: "
-                                       FontWeight="SemiBold" />
+                                       FontWeight="SemiBold"/>
                             <TextBlock x:Name="blockedTb"
                                        Text="0"
-                                       Margin="5,0" />
+                                       Margin="5,0"/>
                         </StackPanel>
-                        <Button Content="Export User List"
-                                Name="exportBtn"
+                        <Button Content="Add New User"
+                                Name="AddUserBtn"
                                 Height="35"
                                 Width="120"
                                 HorizontalAlignment="Right"
                                 Background="#2196F3"
                                 Foreground="White"
-                                Click="exportBtn_Click" />
+                                Click="ShowFromAddUser"/>
                     </Grid>
                 </Border>
             </Grid>

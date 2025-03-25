@@ -24,4 +24,5 @@ public partial class Violation
     public virtual Report Report { get; set; } = null!;
 
     public virtual User? Violator { get; set; }
+    
 }

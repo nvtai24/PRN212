@@ -11,14 +11,16 @@ namespace PRN212.Repositories
     public class UserRepository
     {
         private Prn212Context _context;
+
         public UserRepository()
         {
             _context = new Prn212Context();
         }
+
         public bool ValidateUser(string email, string password)
         {
             var user = _context.Users
-                               .FirstOrDefault(u => u.Email == email && u.Password == password);
+                .FirstOrDefault(u => u.Email == email && u.Password == password);
             return user != null;
         }
 
@@ -37,8 +39,8 @@ namespace PRN212.Repositories
         {
             return _context.Users.FirstOrDefault(u => u.Email == email);
         }
-        
-        
+
+
         public static List<User> ListUsers()
         {
             using (var context = new Prn212Context())
@@ -47,8 +49,7 @@ namespace PRN212.Repositories
             }
         }
 
-        
-        
+
         public static List<User> FilterUsers(string keyword, string role, int status)
         {
             using (var db = new Prn212Context())
@@ -58,7 +59,9 @@ namespace PRN212.Repositories
                 if (keyword != null)
                 {
                     keyword = keyword.ToLower();
-                    query = query.Where(u => u.FullName.Contains(keyword) || u.Address.Contains(keyword) || u.Email.Contains(keyword) || u.Phone.Contains(keyword));
+                    query = query.Where(u =>
+                        u.FullName.Contains(keyword) || u.Address.Contains(keyword) || u.Email.Contains(keyword) ||
+                        u.Phone.Contains(keyword));
                 }
 
                 if (role != "All")
@@ -94,17 +97,27 @@ namespace PRN212.Repositories
         {
             using (var db = new Prn212Context())
             {
-                User u2 = db.Users.Where(u2 => u2.Email == u.Email).FirstOrDefault();
-
-                u2.Address = u.Address;
-                u2.Phone = u.Phone;
-                u2.FullName = u.FullName;
-                u2.Status = u.Status;
-                u2.Role = u.Role;
-                db.Update(u2);
+                db.Update(u);
                 db.SaveChanges();
             }
         }
-        
+
+        public static void AddUserWindow(User u)
+        {
+            using (var db = new Prn212Context())
+            {
+                db.Users.Add(u);
+                db.SaveChanges();
+            }
+        }
+
+        public static User CheckIfUserExists(string email, string phone)
+        {
+            using (var db = new Prn212Context())
+            {
+                return db.Users.FirstOrDefault(u1 => u1.Email == email || u1.Phone == phone) ?? null;
+            }
+        }
+
     }
 }
