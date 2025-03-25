@@ -18,7 +18,6 @@ public partial class MainWindow : Window
         if (currentUser.Role != "Citizen")
         {
             this.btnMyReports.Visibility = Visibility.Collapsed;
-            this.btnMyVehicles.Visibility = Visibility.Collapsed;
             this.btnNotifications.Visibility = Visibility.Collapsed;
             this.btnSendReport.Visibility = Visibility.Collapsed;
             this.btnMyViolations.Visibility = Visibility.Collapsed;
